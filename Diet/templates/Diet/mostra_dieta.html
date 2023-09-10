@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <style>
+        .DivAlimenti{
+            background-color: #AB82FF;
+            color: azure;
+            border: 1px;
+            margin: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+        <div class="p-3 mb-2 bg-info text-white">
+            <h3>Dieta completa di "Username" </h3>
+            <br>
+            <h4> Tipologia: {{ dieta.tipologia }}</h4>
+            <h5> Descrizione: {{ dieta.descrizione }}</h5>
+            <br>
+            <div class="DivAlimenti">
+                <ul>
+                    {% for dettaglio in dettaglio_dieta %}
+                        <li> Pasto: {{ dettaglio.pasto }}</li>
+                        <li> Alimento: {{ dettaglio.alimento.nome }}</li>
+                        <li> Macro: {{ dettaglio.alimento.get_macro }}</li>
+                        <li> Quantita: {{ dettaglio.quantita }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+{% endblock %}

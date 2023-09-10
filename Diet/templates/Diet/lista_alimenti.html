@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="alert alert-primary" role="alert">
+        Lista completa degli alimenti disponibili per la dieta {{ pk_dieta }}
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Proteine</th>
+                <th scope="col">Carboidrati</th>
+                <th scope="col">Grassi</th>
+                <th scope="col">Calorie</th>
+            </tr>
+        </thead>
+        {% for alimento in alimenti  %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{ forloop.counter0 }} </th>
+                    <td> {{ alimento.nome}}</td>
+                    <td> {{ alimento.proteine}}</td>
+                    <td> {{ alimento.carboidrati }}</td>
+                    <td> {{ alimento.grassi }}</td>
+                    <td> {{ alimento.cal }}</td>
+                    <td>
+                        <form method="POST" action="{% url 'Diet:crea_dettaglio' pk_dieta alimento.pk%}">
+                            {% csrf_token %}
+                            <button type="submit">Seleziona</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+
+{%  endblock %}

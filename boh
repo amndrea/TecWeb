@@ -1,0 +1,17 @@
+    """
+        def get_context_data(self, **kwargs):
+            ctx = super().get_context_data(**kwargs)
+            pk_dieta = self.request.resolver_match.kwargs["pk"]
+            dieta = Dieta.objects.filter(pk=pk_dieta)
+            ctx["dieta"] = dieta
+            return ctx
+    """
+
+
+1) IN MOSTRADIETA.HTML METTO UN IF INIZIALE DOVE SE NON CI SONO ALIMENTI
+    {% if object.studenti.all.count == 0 %}
+        <P> Nessuno studente iscritto
+    {% else %}
+
+
+    NELL'IF SEGNALO L'ASSENZA DI ALIMENTI NELLA DIETA E METTO UN BEL PULSANTE "BLEAAA"
