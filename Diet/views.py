@@ -4,23 +4,11 @@ from django.views.generic import CreateView, ListView, DetailView
 from .models import *
 from .forms import InsertAlimentoCrispyForm, InsertDietaCrispyForm, InsertDettaglioDietaCrispyForm
 
-
-# Classe per inserire un alimento
-# solo l'admin può inserire alimenti
-class AlimentoCreateView(CreateView):
-    template_name = 'Diet/crea_alimento.html'
-    form_class = InsertAlimentoCrispyForm
-    success_url = reverse_lazy("Diet:lista_alimenti")
-
-
-# Classe per visualizzare la lista di alimenti
-class AlimentoListView(ListView):
-    model = Alimento
-    template_name = "Diet/lista_alimenti.html"
-
-
-# Classe per inserire una dieta
+# --------------------------------------------------------------------------------------------------- #
 class DietaCreateView(CreateView):
+    """
+    Classe che utilizzo per creare una dieta, solo i PR possono creare una dieta
+    """
     template_name = 'Diet/crea_dieta.html'
     form_class = InsertDietaCrispyForm
 
@@ -29,12 +17,19 @@ class DietaCreateView(CreateView):
         ctx = self.get_context_data()
         pk = ctx["object"].pk
         return reverse_lazy("Diet:mostra_dettaglio", kwargs={"pk": pk})
+# --------------------------------------------------------------------------------------------------- #
 
 
+# --------------------------------------------------------------------------------------------------- #
 class DettaglioDietaCreateView(CreateView):
+    """
+    Classe che utilizzo per Inserire un dettaglio in una dieta
+    Dato un Alimento e data una dieta Inserisco i vari campi del Dettaglio
+    """
     template_name = 'Diet/crea_dettaglio.html'
     form_class = InsertDettaglioDietaCrispyForm
 
+    # Metodo per ottenere l'alimento
     def get_alimento(self):
         try:
             alimento_pk = self.kwargs.get('alimento_pk')
@@ -44,6 +39,7 @@ class DettaglioDietaCreateView(CreateView):
             print("alimento non esiste")
             return None
 
+    # Metodo per ottenere la dieta
     def get_dieta(self):
         try:
             dieta_pk = self.kwargs.get('dieta_pk')
@@ -60,12 +56,13 @@ class DettaglioDietaCreateView(CreateView):
         form.instance.alimento = self.get_alimento()
         return super().form_valid(form)
 
-    # TODO IMPOSTARE UN CORRETTO URL
+    # Dopo aver inserito un dettaglio-dieta
     def get_success_url(self):
-        return reverse_lazy("Diet:crea_alimento")
-# ------------------------------------------------------------------------#
+        return reverse_lazy("Diet:mostra_dettaglio", kwargs={"pk": self.kwargs.get('dieta_pk')})
+# --------------------------------------------------------------------------------------------------- #
 
 
+# --------------------------------------------------------------------------------------------------- #
 def mostra_dettaglio_dieta(request, pk):
     """
     Metodo che utilizzo per visualizzare tutti gli alimenti da poter inserire in una dieta
@@ -80,10 +77,14 @@ def mostra_dettaglio_dieta(request, pk):
         'alimenti': Alimento.objects.all()
     }
     return render(request, template_name='Diet/lista_alimenti.html', context=context)
+# --------------------------------------------------------------------------------------------------- #
 
 
-# In questa view mostro i dettagli completi di una dieta data la sua primary key
+# --------------------------------------------------------------------------------------------------- #
 class MostraDietaCompleta(DetailView):
+    """
+    Classe per visualizzare i dettagli completi di una dieta data la primary key della dieta
+    """
 
     model = Dieta
     template_name = 'Diet/mostra_dieta.html'
@@ -101,3 +102,4 @@ class MostraDietaCompleta(DetailView):
         dettaglio_dieta = DettaglioDieta.objects.filter(dieta=dieta).order_by('giorni', 'pasto')
         context['dettaglio_dieta'] = dettaglio_dieta
         return context
+# --------------------------------------------------------------------------------------------------- #
