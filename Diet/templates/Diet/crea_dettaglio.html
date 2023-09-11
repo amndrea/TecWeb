@@ -4,10 +4,20 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <form method="POST" >
+    <form method="POST" onsubmit="return ControllaDati()" >
         {% csrf_token %}
         {{ form|crispy}}
         <input class="submit" type="submit" value="Submit">
     </form>
+
+    <script> function ControllaDati(){
+        const quantita = document.getElementById('id_quantita').value;
+        if (isNaN(quantita) || quantita < 10){
+            alert('la quantità deve essere un numero positivo')
+            return false;
+        }
+        return true;
+    }
+    </script>
 
 {% endblock %}
