@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, DetailView
 from .models import *
-from .forms import InsertAlimentoCrispyForm, InsertDietaCrispyForm, InsertDettaglioDietaCrispyForm
+from .forms import InsertDietaCrispyForm, InsertDettaglioDietaCrispyForm
+
 
 # --------------------------------------------------------------------------------------------------- #
 class DietaCreateView(CreateView):
@@ -67,14 +68,16 @@ def mostra_dettaglio_dieta(request, pk):
     """
     Metodo che utilizzo per visualizzare tutti gli alimenti da poter inserire in una dieta
     Per ogni alimento nel template c'è un pulsante seleziona che consente di selezionare
-    l'alimento ed inserirlo nella dieta
+    l'alimento e inserirlo nella dieta
     :param request:
     :param pk: primary key della dieta
     :return: render della pagina con tutti i possibili alimenti da inserire nella dieta
     """
+    dieta = Dieta.objects.get(pk=pk)
     context = {
         'pk_dieta': pk,
-        'alimenti': Alimento.objects.all()
+        'alimenti': Alimento.objects.all(),
+        'dieta': dieta
     }
     return render(request, template_name='Diet/lista_alimenti.html', context=context)
 # --------------------------------------------------------------------------------------------------- #

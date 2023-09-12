@@ -25,6 +25,7 @@ class Alimento(models.Model):
     grassi = models.FloatField(default=0)
     cal = models.FloatField(default=0)
 
+    # Metodo che utilizzo per visualizzare l'oggetto nella pagina admin
     def __str__(self):
         return self.nome + " Proteine " + str(self.proteine) + " Carboidrati " + str(self.carboidrati) + " Grassi " + str(self.grassi) + " Calorie " + str(self.cal)
 
@@ -42,7 +43,7 @@ class Dieta(models.Model):
     descrizione = models.CharField(max_length=300, blank=True)
 
     def __str__(self):
-        return str(self.pk) + "  "+self.tipologia+ " "+ self.descrizione
+        return str(self.pk) + "  "+self.tipologia + " " + self.descrizione
 
 
 class DettaglioDieta(models.Model):

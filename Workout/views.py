@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from .forms import InsertSchedaCrispyForm
+from .models import Esercizio
 
 
 # --------------------------------------------------------------------------------------------------- #
@@ -15,3 +16,16 @@ class SchedaCreateView(CreateView):
         ctx = self.get_context_data()
         pk = ctx["object"].pk
         return reverse_lazy("Workout:creascheda")
+
+
+class DettaglioCreateView(CreateView):
+    pass
+
+
+def listaesercizi(request, pk):
+
+    context = {
+        'pk_scheda': pk,
+        'esercizi': Esercizio.objects.all()
+    }
+    return render(request, template_name='Workout/lista_esercizi.html',context=context)
