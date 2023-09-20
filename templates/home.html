@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+<head>
+    {% load static %}
+    <style>
+    </style>
+
+</head>
+
+
+{% block content %}
+
+    <div class="navbar sticky-top">
+        <div class="logo">
+            <strong>OLYMPIA GYM </strong>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#paragrafo-chi-siamo">Chi Siamo</a></li>
+            <li><a href="#paragrafo-contattaci">Contattaci</a></li>
+            <li><a href="#">Login</a></li>
+        </ul>
+    </div>
+    <br>
+
+    <div id="paragrafo-chi-siamo">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title" style="color: #8B0000">Chi siamo</h2>
+                <p class="card-text"> Siamo il CBUM team di formato da personal trainer, nutrizionisti e fisioterapisti. <br>
+                Mettiamo a tua disposizione schede, diete, esercizi posturali e sessioni di stretching per farti raggiungere il tuo fisico ideare rimanendo sempre in salute</p>
+                <p> Se non desideri farti seguire dal nostr CBUM team ma desideri solo allenarti in un' ampia palestra con ottima attrazzatura puoi, con un piano d'abbonamento ridotto
+                puoi avere accesso solo alla palestra</p>
+            </div>
+            <img src="{% static 'imgs/olympia.jpg' %}"  class="card-img-bottom"  >
+        </div>
+    </div>
+    <br>
+
+    <div id="paragrafo-contattaci">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title" style="color: #8B0000">Contattaci</h2>
+                <p class="card-text"> Per prendere appuntamento puoi chiamare il <span style="text-decoration: underline; color: red;">059****** </span> dal luendi al venerdi, dalle 8:30 fino alle 20:30 oppure scrivici una mail a <span style="text-decoration: underline; color: red;">info@olympiagym.it </span> <br>
+                    Se desideri iscriverti o rinnovare l'abbonamento invece, recati in palestra in via OLYMPYA 1 MO sempre dal lunedi al venerdi dalle 8:30 alle 20:30, tutti i pagamenti
+                    vanno effettuati in loco <del> <span style="color:red;">preferibilmente in contanti </span></del>
+                </p>
+            </div>
+        </div>
+    </div>
+    <br>
+
+{% endblock %}

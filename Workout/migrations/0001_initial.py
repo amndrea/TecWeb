@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('nome', models.CharField(max_length=40)),
                 ('descrizione', models.CharField(blank=True, max_length=450)),
-                ('immagine', models.ImageField(blank=True, upload_to='exercises_image')),
+                ('immagine', models.ImageField(blank=True, upload_to='immagini_es')),
             ],
             options={
                 'verbose_name_plural': 'Esercizi',

@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from .views import *
 
@@ -12,7 +14,7 @@ urlpatterns = [
     path('listaesercizi/<pk>/', listaesercizi, name="listaesercizi"),
 
     # URL per inserire il dettaglio di un esercizio in una scheda
-    path('creadettaglio/<int:pk_scheda>/<int:pk_esercizio>/', DettaglioCreateView.as_view(), name="crea_dettaglio"),
+    path('creadettaglio/<int:scheda_pk>/<int:esercizio_pk>/', DettaglioCreateView.as_view(), name="crea_dettaglio"),
 
 
 ]

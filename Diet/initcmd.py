@@ -45,7 +45,10 @@ def carica_alimenti():
                 a.grassi = dati_alimento[3].strip()
                 a.cal = dati_alimento[4].strip()
 
-                a.save()
+                try:
+                    a.save()
+                except Exception:
+                    print("alimento gia presente nel db")
 
     except FileNotFoundError:
         print("Non trovato il file per il caricamento dei dati")

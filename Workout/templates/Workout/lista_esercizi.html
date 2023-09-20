@@ -22,9 +22,9 @@
                     <td> {{ esercizio.nome}}</td>
                     <td> {{ esercizio.descrizione}}</td>
                     <td> {{ esercizio.distretto_target }}</td>
-                    <td> {{ esercizio.immagine }}</td>
+                    <td> <img src="/media/{{ esercizio.immagine }}"></td>
                     <td>
-                        <form method="POST" action="{% url 'Workout:creadettaglio' pk_scheda esercizio.pk%}">
+                        <form method="POST" action="{% url 'Workout:crea_dettaglio' pk_scheda esercizio.pk%}">
                             {% csrf_token %}
                             <button type="submit">Seleziona</button>
                         </form>

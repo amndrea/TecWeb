@@ -16,7 +16,7 @@ class Esercizio(models.Model):
     nome = models.CharField(max_length=40)
     descrizione = models.CharField(max_length=450, blank=True)
     distretto_target = models.CharField(max_length=20, choices=DISTRETTO, default='All')
-    immagine = models.ImageField(upload_to="exercises_image", blank=True)
+    immagine = models.ImageField(upload_to="immagini_es", blank=True)
 
     def __str__(self):
         return self.nome + " " + self.descrizione

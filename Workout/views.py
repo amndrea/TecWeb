@@ -15,7 +15,7 @@ class SchedaCreateView(CreateView):
     def get_success_url(self):
         ctx = self.get_context_data()
         pk = ctx["object"].pk
-        return reverse_lazy("Workout:creascheda")
+        return reverse_lazy("Workout:listaesercizi", kwargs={"pk": pk})
 
 
 class DettaglioCreateView(CreateView):
