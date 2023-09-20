@@ -26,6 +26,8 @@ urlpatterns = [
     path("workout/", include("Workout.urls")),
     path("diet/", include("Diet.urls")),
     path("user/", include("Users.urls")),
+    path("login/", auth_views.LoginView.as_view(), name="login"),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
 
     # URL ai quali mostro la schermata home
     path("", mostra_home, name="home")
