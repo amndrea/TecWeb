@@ -131,7 +131,8 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'immagini_es')
 
-LOGIN_REDIRECT_URL = "/?login=ok"
+# URL al quale vengo redirezionato dopo aver effettuato il login
+LOGIN_REDIRECT_URL = "/home_login/"
 LOGIN_URL = "/login/?auth=notok"
 
 # PER DEFINIRE IL MIO MODELLO DI USER

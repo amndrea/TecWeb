@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from .views import mostra_home
+from .views import mostra_home, mostra_home_log
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -30,6 +30,9 @@ urlpatterns = [
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
 
     # URL ai quali mostro la schermata home
-    path("", mostra_home, name="home")
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path("", mostra_home, name="home"),
 
+    # URL al quale mostro la home dell'utente loggato
+    path("home_login/", mostra_home_log, name="home_login")
+
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
