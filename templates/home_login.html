@@ -1,2 +1,69 @@
 {% extends 'base.html' %}
+{% load static %}
 
+{% block head %}
+    <style>
+        .container {
+            display: flex; /* dispongo i contenuti in orizzontale */
+            align-items: center; /* allineamento verticale al centro */
+        }
+
+        .container img {
+            max-width: 50%; /* Larghezza massima per l'immagine */
+        }
+
+        .content {
+            flex: 1; /* La sezione contenuto occupa lo spazio rimanente */
+            padding: 20px; /* Spazio di riempimento per separare il contenuto dall'immagine */
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Se il login è fatto dal superutente -->
+    {% if user.is_staff %}
+        <h3> <span style="color:#8B0000;"> <strong>Benvenuto nella home della OLYMPIA GYM admin </strong> </span></h3>
+        <a href="{% url 'admin:index' %}">Pannello di amministrazione</a>
+        <br>
+        <a href="{% url 'Users:crea_nutrizionista' %}">Aggiungi un nutrizionista</a>
+        <br>
+        <a href="{% url 'Users:creaa_pt'%}">Aggiungi un personal trainer</a>
+
+     <!-- SE IL LOGIN E FATTO DA UN NUTRIZIONISTA O PERSONAL TRAINER -->
+    {% elif "nutrizionista" in  user.groups.all.0.name or "pt" in user.groups.all.0.name %}
+        <h3> <span style="color:#8B0000;"> <strong>Benvenuto nella home della OLYMPIA GYM </strong> </span></h3>
+        <p>{{ user.username }}</p>
+        <p> {{ user.tipo_abbonamento }}</p>
+        <a href="{% url 'Users:listautenti' %}">Visualizza utenti</a>
+
+
+    {% else%}
+            <div class="navbar sticky-top">
+            <div class="logo">
+                <strong>OLYMPIA GYM </strong>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Scheda</a></li>
+                <li><a href="#">Dieta</a></li>
+                <li><a href="#">Prenotazioni</a></li>
+                <li><a href="#">Situazione Personale</a></li>
+            </ul>
+        </div>
+
+        <p></p>
+        <h3> <span style="color:#8B0000;"> <strong>Benvenuto nella home della OLYMPIA GYM {{ user.username }} </strong> </span></h3>
+        <div class="container">
+            <img src="{% static 'imgs/bodybyuidingv2.jpg' %}" class="img-thumbnail" alt="Descrizione dell'immagine">
+            <div class="content">
+                <h2>Scegli cosa fare </h2>
+                <p> Visualizza la scheda</p>
+                <p> Visualizza la dieta </p>
+                <p> Effettua una prenotazione </p>
+                <p> Visualizza la tua situazione </p>
+            </div>
+        </div>
+
+        {% endif %}
+
+{% endblock %}

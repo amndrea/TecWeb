@@ -15,3 +15,19 @@
 
 
     NELL'IF SEGNALO L'ASSENZA DI ALIMENTI NELLA DIETA E METTO UN BEL PULSANTE "BLEAAA"
+
+
+
+
+
+"""
+permesso_add_dieta = Permission.objects.get(codename='add_dieta')
+permesso_add_dettaglio = Permission.objects.get(codename='add_dettagliodieta')
+permesso_change_dieta = Permission.objects.get(codename='change_dieta')
+permesso_change_dettagliodieta = Permission.objects.get(codename='change_dettagliodieta')
+nutrizionista.permissions.add(permesso_add_dieta)
+nutrizionista.permissions.add(permesso_add_dettaglio)
+nutrizionista.permissions.add(permesso_change_dieta)
+nutrizionista.permissions.add(permesso_change_dettagliodieta)
+"""
+ I permessi li avevo impostati cosi inizialmente ma li ho fatti in un for con una lista

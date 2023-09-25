@@ -20,6 +20,7 @@ from django.contrib.auth import views as auth_views
 from .views import mostra_home, mostra_home_log
 from django.conf import settings
 from django.conf.urls.static import static
+from .initcmd import crea_gruppi
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,3 +37,5 @@ urlpatterns = [
     path("home_login/", mostra_home_log, name="home_login")
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+crea_gruppi()

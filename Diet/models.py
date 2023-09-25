@@ -1,4 +1,7 @@
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.contrib.auth.models import Group
 
 SCELTA_PASTI = [
     ('colazione', 'Colazione'),
@@ -56,3 +59,14 @@ class DettaglioDieta(models.Model):
 
     class Meta:
         ordering = ['giorni', 'pasto']
+
+
+# Permessi del nutrizionista
+
+"""
+nutrizionista, creato_n = Group.objects.get_or_create(name="nutrizionista")
+lista_permessi = ['add_dieta', 'add_dettagliodieta', 'change_dieta', 'change_dettagliodieta', 'delete_dieta', 'delete_dettagliodieta']
+for perm in lista_permessi:
+    permesso = Permission.objects.get(codename=perm)
+    nutrizionista.permissions.add(permesso)
+"""

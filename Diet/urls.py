@@ -19,7 +19,7 @@ urlpatterns = [
     path('mostradieta/<pk>/', MostraDietaCompleta.as_view(), name="mostra_dieta")
 ]
 
-
+#crea_gruppi()
 #svuota_tabelle()
 #salva_alimenti_su_file()
 #carica_alimenti()

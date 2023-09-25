@@ -2,7 +2,6 @@ from .models import *
 import os
 import pickle
 
-
 def svuota_tabelle():
     print("Elimino tutte le entità nel database")
     Alimento.objects.all().delete()

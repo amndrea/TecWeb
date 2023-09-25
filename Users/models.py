@@ -14,7 +14,7 @@ class MyUser(AbstractUser):
     peso = models.FloatField(blank=True, null=True)
     altezza = models.FloatField(blank=True, null=True)
     tipo_abbonamento = models.IntegerField(default=1)
-    fine_abbonamento = models.DateField()
+    fine_abbonamento = models.DateField(blank=True, null=True)
 
 
 MyUser._meta.get_field('groups').remote_field.related_name = 'myuser_set'
