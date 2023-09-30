@@ -14,13 +14,15 @@ class InsertDietaCrispyForm(forms.ModelForm):
     helper.form_method = "POST"
     helper.add_input(Submit('submit', 'submit'))
 
+
     class Meta:
 
         # Su quale modello sto andando a lavorare
         model = Dieta
 
         # Quali campi consento di editare
-        fields = '__all__'
+        exclude=['my_user']
+
 
 
 class InsertDettaglioDietaCrispyForm(forms.ModelForm):

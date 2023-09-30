@@ -1,7 +1,9 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
 from .models import *
+from Users.models import MyUser
 from .forms import InsertDietaCrispyForm, InsertDettaglioDietaCrispyForm
 
 
@@ -13,14 +15,30 @@ class DietaCreateView(CreateView):
     template_name = 'Diet/crea_dieta.html'
     form_class = InsertDietaCrispyForm
 
+    def get_user(self):
+        user_pk = self.kwargs.get('utente_pk')
+        try:
+            user = MyUser.objects.get(pk=user_pk)
+            return user
+        except Exception:
+            print("qualcosa è andato male")
+
+    def form_valid(self, form):
+        form.instance.my_user = self.get_user()
+        return super().form_valid(form)
+
+
     # Dopo aver creato una dieta mi redireziono nella pagina per inserire gli alimenti
     def get_success_url(self):
         ctx = self.get_context_data()
         pk = ctx["object"].pk
+        print("sono la chiave")
+        print(pk)
         return reverse_lazy("Diet:mostra_dettaglio", kwargs={"pk": pk})
 # --------------------------------------------------------------------------------------------------- #
 
-
+def show_dettaglio(request):
+    pass
 # --------------------------------------------------------------------------------------------------- #
 class DettaglioDietaCreateView(CreateView):
     """
@@ -106,3 +124,40 @@ class MostraDietaCompleta(DetailView):
         context['dettaglio_dieta'] = dettaglio_dieta
         return context
 # --------------------------------------------------------------------------------------------------- #
+
+
+class MostraDietaUser(DetailView):
+    model = Dieta
+    template_name = "Diet/mostradietautente.html"
+    context_object_name = "dieta"  # Nome dell'oggetto nel template
+
+    def get_user(self):
+        pk = self.kwargs.get('pk')
+        my_user = MyUser.objects.get(pk=pk)
+        return my_user
+
+    def get_object(self, queryset=None):
+        try:
+            user = self.get_user()
+            dieta = Dieta.objects.filter(user=user).order_by('-data_inizio').first()
+            return dieta
+        except Exception:
+            return None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        dieta = self.get_object()  # Ottengo l'oggetto dieta corrente
+
+        try:
+            dettaglio_dieta = DettaglioDieta.objects.filter(dieta=dieta).order_by('giorni', 'pasto')
+            context['dettaglio_dieta'] = dettaglio_dieta
+        except Exception:
+            dettaglio_dieta = None
+            context['dettaglio_dieta'] = dettaglio_dieta
+
+        my_user = self.get_user()
+
+        context['my_user'] = my_user
+        context['dieta'] = dieta
+
+        return context

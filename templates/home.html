@@ -1,11 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
-<head>
+{% block head %}
     {% load static %}
     <style>
+        .testo-rosso{
+            color: #DC143C;
+            font-weight: bold;
+        }
+        .testo-arancione{
+            color: tomato;
+            font-weight: bold;
+        }
+        .testo-speciale{
+            text-decoration: underline;
+            color: red
+        }
+
     </style>
 
-</head>
+{% endblock %}
 
 
 {% block content %}
@@ -17,8 +30,10 @@
         <ul class="nav-links">
             <li><a href="#paragrafo-chi-siamo">Chi Siamo</a></li>
             <li><a href="#paragrafo-contattaci">Contattaci</a></li>
+            <li><a href="#paragrafo-abbonamenti">Abbonamenti</a></li>
             <li><a href="login">Login</a></li>
             <li><a href="{% url 'Users:crea_utente' %}">Registrati </a></li>
+
         </ul>
     </div>
     <br>
@@ -41,7 +56,7 @@
         <div class="card">
             <div class="card-body">
                 <h2 class="card-title" style="color: #8B0000">Contattaci</h2>
-                <p class="card-text"> Per prendere appuntamento puoi chiamare il <span style="text-decoration: underline; color: red;">059****** </span> dal luendi al venerdi, dalle 8:30 fino alle 20:30 oppure scrivici una mail a <span style="text-decoration: underline; color: red;">info@olympiagym.it </span> <br>
+                <p class="card-text"> Per prendere appuntamento puoi chiamare il <span class="testo-speciale">059****** </span> dal luendi al venerdi, dalle 8:30 fino alle 20:30 oppure scrivici una mail a <span class="testo-speciale">info@olympiagym.it </span> <br>
                     Se desideri iscriverti o rinnovare l'abbonamento invece, recati in palestra in via OLYMPYA 1 MO sempre dal lunedi al venerdi dalle 8:30 alle 20:30, tutti i pagamenti
                     vanno effettuati in loco <del> <span style="color:red;">preferibilmente in contanti </span></del>
                 </p>
@@ -49,5 +64,33 @@
         </div>
     </div>
     <br>
+
+    <div id="paragrafo-abbonamenti">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title" style="color: #8B0000">Info e Abbonamenti</h2>
+                <p class="card-text">
+                    Olimpya Gim offre vari piani di abbonamento: <br>
+                    <ul>
+                        <li>Con un abbonamento di <span class="testo-rosso"> primo livello </span>
+                        avrai a disposizione una scheda sturiata su misura per te e una dieta che ti aiuterà nel raggiungere
+                        i tuoi obiettivi, consultabili dalla tua home page. <br></li>
+                        Per accedere a questo servizio è richiesto un pagamento anticipato di  <span class="testo-arancione"> 150$</span>  <br> <br>
+
+                        <li> Con un abbonamento di <span class="testo-rosso"> secondo livello </span>avrai ovviamente a tua disposizione scheda e dieta, e potrai accedere alla palestra per allenarti, negli orari di aprtura sopra indicati. <br>
+                            Le tariffe qui variano in base alla durata dell'abbonamento
+                            <ul>
+                                <li> <span class="testo-arancione">70$</span> per un accesso di 1 mese </li>
+                                <li> <span class="testo-arancione">190$</span> per un accesso di 3 mesi </li>
+                                <li> <span class="testo-arancione">350$</span> per un accesso di 6 mesi </li>
+                                <li> <span class="testo-arancione">600$</span> per un accesso annuale </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </p>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

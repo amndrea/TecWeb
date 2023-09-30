@@ -27,7 +27,9 @@ class NutrizionistaCreateView(PermissionRequiredMixin, UserCreateView):
     form_class = CreaNutrizionista
 
     def form_valid(self, form):
+        print("sono qua")
         form.instance.tipo_abbonamento = 2
+        return super().form_valid(form)
 
 
 class PersonalTrainerCreateView(PermissionRequiredMixin, UserCreateView):
@@ -36,7 +38,7 @@ class PersonalTrainerCreateView(PermissionRequiredMixin, UserCreateView):
 
     def form_valid(self, form):
         form.instance.tipo_abbonamento = 2
-
+        return super().form_valid(form)
 
 class UtentiListView(GroupRequiredMixin, ListView):
     group_required = ["nutrizionista", "pt"]

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+    {% load static %}
+    <style>
+        .DivAlimenti{
+            background-color: #8B0000;
+            color: white;
+            border: 1px;
+            margin: 5px;
+        }
+        .colazione {
+            background-color: yellow;
+        }
+
+        .pranzo {
+            background-color: green;
+        }
+
+        .cena {
+            background-color: red;
+        }
+
+    </style>
+{% endblock %}
+
+
+{% block content %}
+
+    <!-- Se ho la dieta la visualizzo -->
+    {% if dieta %}
+
+        <div class="p-3 mb-2 bg-info text-white">
+            <h3>Dieta completa di {{ dieta.user.username }} </h3>
+            <br>
+            <h4> Tipologia: {{ dieta.tipologia }}</h4>
+            <h5> Descrizione: {{ dieta.descrizione }}</h5>
+            <br>
+            <div class="DivAlimenti">
+                <ul>
+                    {% for dettaglio in dettaglio_dieta %}
+                        <div class="alimento {{ dettaglio.pasto }}">
+                            <li> Pasto: {{ dettaglio.pasto }}</li>
+                            <li> Alimento: {{ dettaglio.alimento.nome }}</li>
+                            <li> Macro: {{ dettaglio.alimento.get_macro }}</li>
+                            <li> Quantita: {{ dettaglio.quantita }}</li>
+                            <br>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Se sono un nutrizionista do la possibilità modificarla -->
+        {% if "nutrizionista" in user.groups.all.1.name %}
+
+        {% endif %}
+
+    <!-- Se non ho la dieta -->
+    {% else %}
+
+
+        <!-- Se sono un nutrizionista do la possibilità di crearla -->
+        {% if "nutrizionista" in  user.groups.all.1.name %}
+            <div class="404Dieta">
+                <div class="card mb-3">
+                    <img src="{% static 'imgs/404_dieta.jpg' %}" class="card-img-top">
+                    <div class="card-body">
+                        <center>
+                            <p> L'utente {{ my_user.username }}, non possiede ancora una dieta, creane una</p>
+                            <form method="POST" action="{% url 'Diet:crea_dieta' my_user.pk %}">
+                                {% csrf_token %}
+                                <button class="pulsante-rosso" type="submit">Crea dieta</button>
+                            </form>
+                        </center>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+         <!-- Altrimenti se sono un untente normale do un messaggio di errore -->
+        {% else %}
+            <div class="404Dieta">
+                <div class="card mb-3">
+                    <img src="{% static 'imgs/404_dieta.jpg' %}" class="card-img-top">
+                    <div class="card-body">
+                        <h3> <span style="color:#8B0000;"> <strong>Se desideri ricevere una dieta chiedila al tuo nutrizionista </strong> </span></h3>
+                        <p class="card-text">Al momento non disponi di alcuna dieta, per ricevere una dieta controlla che il tuo abbonamento sia valido e fai richiesta
+                        ad un nutrizionista attraverso il link <a href="#"></a></p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+
+    {% endif %}
+{% endblock %}

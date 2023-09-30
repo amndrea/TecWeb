@@ -31,3 +31,102 @@ nutrizionista.permissions.add(permesso_change_dieta)
 nutrizionista.permissions.add(permesso_change_dettagliodieta)
 """
  I permessi li avevo impostati cosi inizialmente ma li ho fatti in un for con una lista
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% extends 'base.html' %}
+
+{% block head %}
+    <style>
+        .DivAlimenti{
+            background-color: #8B0000;
+            color: white;
+            border: 1px;
+            margin: 5px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+
+    <!-- Se ho la dieta la visualizzo -->
+    {% if dieta %}
+
+        <div class="p-3 mb-2 bg-info text-white">
+            <h3>Dieta completa di {{ dieta.user.username }} </h3>
+            <br>
+            <h4> Tipologia: {{ dieta.tipologia }}</h4>
+            <h5> Descrizione: {{ dieta.descrizione }}</h5>
+            <br>
+            <div class="DivAlimenti">
+                <ul>
+                    {% for dettaglio in dettaglio_dieta %}
+                        <li> Pasto: {{ dettaglio.pasto }}</li>
+                        <li> Alimento: {{ dettaglio.alimento.nome }}</li>
+                        <li> Macro: {{ dettaglio.alimento.get_macro }}</li>
+                        <li> Quantita: {{ dettaglio.quantita }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Se sono un nutrizionista do la possibilità modificarla -->
+        {% if "nutrizionista" in user.groups.all.0.name %}
+
+        {% endif %}
+
+    <!-- Se non ho la dieta -->
+    {% else %}
+        ciao
+
+        <!-- Se sono un nutrizionista do la possibilità di crearla -->
+        {% if "nutrizionista" in  user.groups.all.0.name %}
+            <p> Nutri</p>
+                        <div class="404Dieta">
+                <div class="card mb-3">
+                    <img src="{% static 'imgs/404_dieta.jpg' %}" class="card-img-top">
+                    <div class="card-body">
+                        <h3> <span style="color:#8B0000;"> <strong>Se desideri ricevere una dieta chiedila al tuo nutrizionista </strong> </span></h3>
+                        <p class="card-text">Al momento non disponi di alcuna dieta, per ricevere una dieta controlla che il tuo abbonamento sia valido e fai richiesta
+                        ad un nutrizionista attraverso il link <a href="#"></a></p>
+                    </div>
+                </div>
+            </div>
+
+
+         <!-- Altrimenti se sono un untente normale do un messaggio di errore -->
+        {% else %}
+            <div class="404Dieta">
+                <div class="card mb-3">
+                    <img src="{% static 'imgs/404_dieta.jpg' %}" class="card-img-top">
+                    <div class="card-body">
+                        <h3> <span style="color:#8B0000;"> <strong>Se desideri ricevere una dieta chiedila al tuo nutrizionista </strong> </span></h3>
+                        <p class="card-text">Al momento non disponi di alcuna dieta, per ricevere una dieta controlla che il tuo abbonamento sia valido e fai richiesta
+                        ad un nutrizionista attraverso il link <a href="#"></a></p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+
+    {% endif %}
+
+
+
+    style="color: #DC143C; font-weight: bold"

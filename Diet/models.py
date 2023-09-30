@@ -1,7 +1,7 @@
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Permission, Group
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.contrib.auth.models import Group
+from django.utils import timezone
 
 SCELTA_PASTI = [
     ('colazione', 'Colazione'),
@@ -42,8 +42,11 @@ class Alimento(models.Model):
 
 
 class Dieta(models.Model):
+    my_user = models.ForeignKey('Users.MyUser', on_delete=models.CASCADE,db_column='my_user_id')
     tipologia = models.CharField(max_length=30)
     descrizione = models.CharField(max_length=300, blank=True)
+    data_inizio = models.DateField(null=True, blank=True)
+    data_fine = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return str(self.pk) + "  "+self.tipologia + " " + self.descrizione
@@ -59,14 +62,3 @@ class DettaglioDieta(models.Model):
 
     class Meta:
         ordering = ['giorni', 'pasto']
-
-
-# Permessi del nutrizionista
-
-"""
-nutrizionista, creato_n = Group.objects.get_or_create(name="nutrizionista")
-lista_permessi = ['add_dieta', 'add_dettagliodieta', 'change_dieta', 'change_dettagliodieta', 'delete_dieta', 'delete_dettagliodieta']
-for perm in lista_permessi:
-    permesso = Permission.objects.get(codename=perm)
-    nutrizionista.permissions.add(permesso)
-"""
