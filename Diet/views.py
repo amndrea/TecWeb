@@ -108,7 +108,7 @@ class MostraDietaCompleta(DetailView):
     """
 
     model = Dieta
-    template_name = 'Diet/mostra_dieta.html'
+    template_name = 'Diet/mostra_alimenti.html'
 
     # Metodo che utilizzo per avere il riferimento all'oggetto dieta corrente
     def get_object(self, queryset=None):
@@ -131,33 +131,47 @@ class MostraDietaUser(DetailView):
     template_name = "Diet/mostradietautente.html"
     context_object_name = "dieta"  # Nome dell'oggetto nel template
 
+    # Metodo che utilizzo per recuperare l'user dalla pk nell'url
     def get_user(self):
         pk = self.kwargs.get('pk')
         my_user = MyUser.objects.get(pk=pk)
         return my_user
 
+    # Metodo che utilizzo per recuperare la dieta dall'user
     def get_object(self, queryset=None):
+
         try:
             user = self.get_user()
-            dieta = Dieta.objects.filter(user=user).order_by('-data_inizio').first()
+            dieta = Dieta.objects.filter(my_user=user).latest('pk')
             return dieta
-        except Exception:
-            return None
 
+        except Dieta.DoesNotExist:
+            print("la dieta non esiste")
+            print(Exception)
+
+    # Metodo che utilizzo per creare altri dati di contesto da mostrare nel
+    # template come il dettaglio di una dieta diviso in giorni e pasti
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
-        dieta = self.get_object()  # Ottengo l'oggetto dieta corrente
+        dieta = self.get_object()
 
         try:
-            dettaglio_dieta = DettaglioDieta.objects.filter(dieta=dieta).order_by('giorni', 'pasto')
+            dettaglio_dieta = DettaglioDieta.objects.filter(dieta=dieta).order_by('giorni')
             context['dettaglio_dieta'] = dettaglio_dieta
+            colazioni = dettaglio_dieta.filter(pasto="coalzione")
+            context['colazioni'] = colazioni
+            spuntini = dettaglio_dieta.filter(pasto="spuntino")
+            context['spuntini'] = spuntini
+            pranzi = dettaglio_dieta.filter(pasto="pranzo")
+            context['pranzi'] = pranzi
+            merende = dettaglio_dieta.filter(pasto="merenda")
+            context['merende'] = merende
+            cene = dettaglio_dieta.filter(pasto="cena")
+            context['cene'] = cene
+
         except Exception:
-            dettaglio_dieta = None
-            context['dettaglio_dieta'] = dettaglio_dieta
+            context['dettaglio_dieta'] = None
 
-        my_user = self.get_user()
-
-        context['my_user'] = my_user
         context['dieta'] = dieta
-
         return context

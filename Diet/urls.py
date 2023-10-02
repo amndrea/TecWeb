@@ -1,7 +1,8 @@
 from django.urls import path
 from Diet.views import *
 from .initcmd import *
-
+from django.templatetags.static import static
+import os
 app_name = "Diet"
 
 urlpatterns = [
@@ -27,3 +28,4 @@ urlpatterns = [
 #salva_alimenti_su_file()
 #carica_alimenti()
 
+leggi_alimenti()

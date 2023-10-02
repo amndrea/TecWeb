@@ -130,3 +130,612 @@ nutrizionista.permissions.add(permesso_change_dettagliodieta)
 
 
     style="color: #DC143C; font-weight: bold"
+
+
+
+
+    Pollo (senza pelle, cotto al forno):
+        Proteine: 31 g
+        Carboidrati: 0 g
+        Grassi: 3.6 g
+        Calorie: 165 kcal
+
+    Salmone (cotto al forno):
+        Proteine: 25 g
+        Carboidrati: 0 g
+        Grassi: 10.5 g
+        Calorie: 206 kcal
+
+    Manzo magro (cotto):
+        Proteine: 31 g
+        Carboidrati: 0 g
+        Grassi: 4 g
+        Calorie: 158 kcal
+
+    Uova:
+        Proteine: 13 g
+        Carboidrati: 1 g
+        Grassi: 11 g
+        Calorie: 155 kcal
+
+    Tonno in scatola (sgocciolato):
+        Proteine: 30 g
+        Carboidrati: 0 g
+        Grassi: 1 g
+        Calorie: 132 kcal
+
+    Lenticchie (cotte):
+        Proteine: 9 g
+        Carboidrati: 20 g
+        Grassi: 0.4 g
+        Calorie: 116 kcal
+
+    Riso integrale (cotto):
+        Proteine: 2.4 g
+        Carboidrati: 28 g
+        Grassi: 0.6 g
+        Calorie: 130 kcal
+
+    Avena (cotta):
+        Proteine: 1.8 g
+        Carboidrati: 12 g
+        Grassi: 1.4 g
+        Calorie: 71 kcal
+
+    Mandorle:
+        Proteine: 21 g
+        Carboidrati: 22 g
+        Grassi: 49 g
+        Calorie: 575 kcal
+
+    Banana:
+        Proteine: 1.1 g
+        Carboidrati: 23 g
+        Grassi: 0.3 g
+        Calorie: 89 kcal
+
+    Avocado:
+        Proteine: 2 g
+        Carboidrati: 9 g
+        Grassi: 15 g
+        Calorie: 160 kcal
+
+        Tofu:
+        Proteine: 8 g
+        Carboidrati: 1.9 g
+        Grassi: 4.8 g
+        Calorie: 76 kcal
+
+    Pasta integrale (cotta):
+        Proteine: 3.5 g
+        Carboidrati: 25 g
+        Grassi: 1.4 g
+        Calorie: 124 kcal
+
+    Sgombro in scatola (sgocciolato):
+        Proteine: 24 g
+        Carboidrati: 0 g
+        Grassi: 10 g
+        Calorie: 176 kcal
+
+    Polpa di granchio (sgocciolata):
+        Proteine: 17 g
+        Carboidrati: 2 g
+        Grassi: 0.5 g
+        Calorie: 84 kcal
+
+    Spinaci (cotti):
+        Proteine: 3 g
+        Carboidrati: 4 g
+        Grassi: 0 g
+        Calorie: 23 kcal
+
+    Pane integrale:
+        Proteine: 12 g
+        Carboidrati: 45 g
+        Grassi: 3.5 g
+        Calorie: 250 kcal
+
+    Yogurt magro (senza zucchero aggiunto):
+        Proteine: 10 g
+        Carboidrati: 4 g
+        Grassi: 0.4 g
+        Calorie: 59 kcal
+
+    Mirtilli:
+        Proteine: 0.7 g
+        Carboidrati: 14 g
+        Grassi: 0.4 g
+        Calorie: 43 kcal
+
+    Fagioli neri (cotti):
+        Proteine: 9 g
+        Carboidrati: 24 g
+        Grassi: 0.6 g
+        Calorie: 132 kcal
+
+    Turchia (senza pelle, cotta al forno):
+        Proteine: 29 g
+        Carboidrati: 0 g
+        Grassi: 1 g
+        Calorie: 135 kcal
+
+    Ceci (cotti):
+        Proteine: 8.9 g
+        Carboidrati: 27 g
+        Grassi: 2.9 g
+        Calorie: 164 kcal
+
+    Kiwi:
+        Proteine: 1.1 g
+        Carboidrati: 14.6 g
+        Grassi: 0.5 g
+        Calorie: 61 kcal
+
+    Pera:
+        Proteine: 0.4 g
+        Carboidrati: 15.5 g
+        Grassi: 0.2 g
+        Calorie: 57 kcal
+
+    Pomodoro:
+        Proteine: 0.9 g
+        Carboidrati: 3.9 g
+        Grassi: 0.2 g
+        Calorie: 18 kcal
+
+    Melanzane (cotte):
+        Proteine: 0.9 g
+        Carboidrati: 5.9 g
+        Grassi: 0.2 g
+        Calorie: 24 kcal
+
+        Pasta all'uovo (cotta):
+        Proteine: 12 g
+        Carboidrati: 31 g
+        Grassi: 1.3 g
+        Calorie: 158 kcal
+
+    Riso bianco (cotto):
+        Proteine: 2.4 g
+        Carboidrati: 28 g
+        Grassi: 0.2 g
+        Calorie: 130 kcal
+
+    Patate (cotte):
+        Proteine: 2 g
+        Carboidrati: 20 g
+        Grassi: 0.2 g
+        Calorie: 77 kcal
+
+    Banana:
+        Proteine: 1.1 g
+        Carboidrati: 23 g
+        Grassi: 0.3 g
+        Calorie: 89 kcal
+
+    Uva:
+        Proteine: 0.6 g
+        Carboidrati: 18 g
+        Grassi: 0.2 g
+        Calorie: 69 kcal
+
+    Quinoa (cotta):
+        Proteine: 4.1 g
+        Carboidrati: 21 g
+        Grassi: 1.6 g
+        Calorie: 120 kcal
+
+    Avena (cotta):
+        Proteine: 1.8 g
+        Carboidrati: 12 g
+        Grassi: 1.4 g
+        Calorie: 71 kcal
+
+    Pane integrale:
+        Proteine: 12 g
+        Carboidrati: 45 g
+        Grassi: 3.5 g
+        Calorie: 250 kcal
+
+    Mais (cotto):
+        Proteine: 3.4 g
+        Carboidrati: 19 g
+        Grassi: 1 g
+        Calorie: 86 kcal
+
+    Cereali per la colazione (senza zucchero aggiunto):
+        Proteine: 7.4 g
+        Carboidrati: 88 g
+        Grassi: 1.6 g
+        Calorie: 383 kcal
+
+    Pane bianco:
+        Proteine: 8 g
+        Carboidrati: 49 g
+        Grassi: 2.7 g
+        Calorie: 265 kcal
+
+    Pompelmo:
+        Proteine: 0.8 g
+        Carboidrati: 9 g
+        Grassi: 0.2 g
+        Calorie: 32 kcal
+
+    Ananas:
+        Proteine: 0.5 g
+        Carboidrati: 13.1 g
+        Grassi: 0.2 g
+        Calorie: 50 kcal
+
+    Mango:
+        Proteine: 0.8 g
+        Carboidrati: 14.9 g
+        Grassi: 0.6 g
+        Calorie: 60 kcal
+
+
+/****************************************************/
+Pollo:
+        Proteine: 31 g
+        Carboidrati: 0 g
+        Grassi: 3.6 g
+        Calorie: 165 kcal
+
+Salmone:
+        Proteine: 25
+        Carboidrati: 0
+        Grassi: 10.5
+        Calorie: 206
+
+Manzo magro:
+        Proteine: 31
+        Carboidrati:
+        Grassi:
+        Calorie: 158
+
+Uova:
+        Proteine: 13
+        Carboidrati: 1
+        Grassi: 11
+        Calorie: 155
+
+Tonno in scatola:
+        Proteine: 30
+        Carboidrati: 0
+        Grassi: 1
+        Calorie: 132
+
+Lenticchie:
+        Proteine: 9 g
+        Carboidrati: 20 g
+        Grassi: 0.4 g
+        Calorie: 116 kcal
+
+Riso integrale:
+        Proteine: 2.4
+        Carboidrati: 28
+        Grassi: 0.6
+        Calorie: 130
+
+Avena:
+        Proteine: 1.8 g
+        Carboidrati: 12 g
+        Grassi: 1.4 g
+        Calorie: 71 kcal
+
+Mandorle:
+        Proteine: 21 g
+        Carboidrati: 22 g
+        Grassi: 49 g
+        Calorie: 575 kcal
+
+Avocado:
+        Proteine: 2 g
+        Carboidrati: 9 g
+        Grassi: 15 g
+        Calorie: 160 kcal
+
+Tofu:
+        Proteine: 8 g
+        Carboidrati: 1.9 g
+        Grassi: 4.8 g
+        Calorie: 76 kcal
+
+Pasta integrale:
+        Proteine: 3.5 g
+        Carboidrati: 25 g
+        Grassi: 1.4 g
+        Calorie: 124 kcal
+
+Sgombro in scatola:
+        Proteine: 24 g
+        Carboidrati: 0 g
+        Grassi: 10 g
+        Calorie: 176 kcal
+
+Polpa di granchio:
+        Proteine: 17 g
+        Carboidrati: 2 g
+        Grassi: 0.5 g
+        Calorie: 84 kcal
+
+Spinaci:
+        Proteine: 3 g
+        Carboidrati: 4 g
+        Grassi: 0 g
+        Calorie: 23 kcal
+
+Yogurt magro:
+        Proteine: 10 g
+        Carboidrati: 4 g
+        Grassi: 0.4 g
+        Calorie: 59 kcal
+
+Mirtilli:
+        Proteine: 0.7 g
+        Carboidrati: 14 g
+        Grassi: 0.4 g
+        Calorie: 43 kcal
+
+Fagioli neri:
+        Proteine: 9 g
+        Carboidrati: 24 g
+        Grassi: 0.6 g
+        Calorie: 132 kcal
+
+Ceci:
+        Proteine: 8.9 g
+        Carboidrati: 27 g
+        Grassi: 2.9 g
+        Calorie: 164 kcal
+
+Kiwi:
+        Proteine: 1.1 g
+        Carboidrati: 14.6 g
+        Grassi: 0.5 g
+        Calorie: 61 kcal
+
+Pera:
+        Proteine: 0.4 g
+        Carboidrati: 15.5 g
+        Grassi: 0.2 g
+        Calorie: 57 kcal
+
+Pomodoro:
+        Proteine: 0.9 g
+        Carboidrati: 3.9 g
+        Grassi: 0.2 g
+        Calorie: 18 kcal
+
+Melanzane:
+        Proteine: 0.9 g
+        Carboidrati: 5.9 g
+        Grassi: 0.2 g
+        Calorie: 24 kcal
+
+Patate:
+        Proteine: 2 g
+        Carboidrati: 20 g
+        Grassi: 0.2 g
+        Calorie: 77 kcal
+
+Banana:
+        Proteine: 1.1 g
+        Carboidrati: 23 g
+        Grassi: 0.3 g
+        Calorie: 89 kcal
+
+Quinoa:
+        Proteine: 4.1 g
+        Carboidrati: 21 g
+        Grassi: 1.6 g
+        Calorie: 120 kcal
+
+Pane integrale:
+        Proteine: 12 g
+        Carboidrati: 45 g
+        Grassi: 3.5 g
+        Calorie: 250 kcal
+
+Mais:
+        Proteine: 3.4 g
+        Carboidrati: 19 g
+        Grassi: 1 g
+        Calorie: 86 kcal
+
+Cereali per la colazione:
+        Proteine: 7.4 g
+        Carboidrati: 88 g
+        Grassi: 1.6 g
+        Calorie: 383 kcal
+
+Pane bianco:
+        Proteine: 8 g
+        Carboidrati: 49 g
+        Grassi: 2.7 g
+        Calorie: 265 kcal
+
+Pompelmo:
+        Proteine: 0.8 g
+        Carboidrati: 9 g
+        Grassi: 0.2 g
+        Calorie: 32 kcal
+
+Ananas:
+        Proteine: 0.5 g
+        Carboidrati: 13.1 g
+        Grassi: 0.2 g
+        Calorie: 50 kcal
+Mango:
+        Proteine: 0.8 g
+        Carboidrati: 14.9 g
+        Grassi: 0.6 g
+        Calorie: 60 kcal
+
+
+Pollo
+31
+0
+3.6
+165
+Salmone
+25
+0
+10.5
+206
+Manzo magro
+31
+0
+0
+158
+Uova
+13
+1
+11
+155
+Tonno in scatola
+30
+0
+1
+132
+Lenticchie
+9
+20
+0.4
+116
+Riso integrale
+2.4
+28
+0.6
+130
+Avena
+1.8
+12
+1.4
+71
+Mandorle
+21
+22
+49
+575
+Avocado
+2
+9
+15
+160
+Tofu
+8
+1.9
+4.8
+76
+Pasta integrale
+3.5
+25
+1.4
+124
+Sgombro in scatola
+24
+0
+10
+176
+Polpa di granchio
+17
+2
+0.5
+84
+Spinaci
+3
+4
+0
+23
+Yogurt magro
+10
+4
+0.4
+59
+Mirtilli
+0.7
+14
+0.4
+43
+Fagioli neri
+9
+24
+0.6
+132
+Ceci
+8.9
+27
+2.9
+164
+Kiwi
+1.1
+14.6
+0.5
+61
+Pera
+0.4
+15.5
+0.2
+57
+Pomodoro
+0.9
+3.9
+0.2
+18
+Melanzane
+0.9
+5.9
+0.2
+24
+Patate
+2
+20
+0.2
+77
+Banana
+1.1
+23
+0.3
+89
+Quinoa
+4.1
+21
+1.6
+120
+Pane integrale
+12
+45
+3.5
+250
+Mais
+3.4
+19
+1
+86
+Cereali per la colazione
+7.4
+88
+1.6
+383
+Pane bianco
+8
+49
+2.7
+265
+Pompelmo
+0.8
+9
+0.2
+32
+Ananas
+0.5
+13.1
+0.2
+50
+Mango
+0.8
+14.9
+0.6
+60

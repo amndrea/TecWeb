@@ -51,3 +51,33 @@ def carica_alimenti():
 
     except FileNotFoundError:
         print("Non trovato il file per il caricamento dei dati")
+
+
+# Funzione per caricare gli alimenti da file testuale
+def leggi_alimenti():
+
+    # Directory static
+    directory_static= os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'static')
+
+    nome_file = '\\data\\alimenti.txt'
+    percorso_completo = directory_static + nome_file
+
+    if os.path.exists(percorso_completo):
+        with open(percorso_completo, 'r') as file:
+            lines = file.readlines()
+            for i in range (0,len(lines),5):
+                linee = lines[i:i+5]
+
+                try:
+                    alimento = Alimento()
+                    alimento.nome = linee[0].strip()
+                    alimento.proteine = linee[1]
+                    alimento.carboidrati = linee[2]
+                    alimento.grassi = linee[3]
+                    alimento.cal = linee[4]
+                    alimento.save()
+
+                except Exception:
+                    pass
+    else:
+        print("Errore nel caricamento alimenti da file")

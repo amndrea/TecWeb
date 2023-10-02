@@ -4,11 +4,11 @@ from django.db import models
 from django.utils import timezone
 
 SCELTA_PASTI = [
-    ('colazione', 'Colazione'),
-    ('spuntino', 'Spuntino'),
-    ('pranzo', 'Pranzo'),
-    ('merenda', 'Merenda'),
-    ('cena', 'Cena')
+    ('1', 'Colazione'),
+    ('2', 'Spuntino'),
+    ('3', 'Pranzo'),
+    ('4', 'Merenda'),
+    ('5', 'Cena')
 ]
 
 SCELTA_GIORNI = [

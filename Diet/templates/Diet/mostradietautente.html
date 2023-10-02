@@ -11,15 +11,15 @@
             margin: 5px;
         }
         .colazione {
-            background-color: yellow;
+            background-color: darkgoldenrod;
         }
 
         .pranzo {
-            background-color: green;
+            background-color: darkslateblue;
         }
 
         .cena {
-            background-color: red;
+            background-color: darkslategrey;
         }
 
     </style>
@@ -30,9 +30,20 @@
 
     <!-- Se ho la dieta la visualizzo -->
     {% if dieta %}
+        <div class="text_red"> Dieta completa di {{ dieta.my_user.username }} </div>
+        <h4> Tipologia: {{ dieta.tipologia }}</h4>
+        <h5> Descrizione: {{ dieta.descrizione }}</h5>
 
+        {% for giorno in dettaglio.giorni %}
+            <p> girono</p>
+        {% endfor %}
+
+        <div class="giorno">
+
+
+        </div>
         <div class="p-3 mb-2 bg-info text-white">
-            <h3>Dieta completa di {{ dieta.user.username }} </h3>
+            <h3>Dieta completa di {{ dieta.my_user.username }} </h3>
             <br>
             <h4> Tipologia: {{ dieta.tipologia }}</h4>
             <h5> Descrizione: {{ dieta.descrizione }}</h5>
@@ -41,6 +52,7 @@
                 <ul>
                     {% for dettaglio in dettaglio_dieta %}
                         <div class="alimento {{ dettaglio.pasto }}">
+                             Giorno: {{ dettaglio.giorni }}
                             <li> Pasto: {{ dettaglio.pasto }}</li>
                             <li> Alimento: {{ dettaglio.alimento.nome }}</li>
                             <li> Macro: {{ dettaglio.alimento.get_macro }}</li>

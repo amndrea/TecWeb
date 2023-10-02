@@ -12,7 +12,7 @@
 
     <script> function ControllaDati(){
         const quantita = document.getElementById('id_quantita').value;
-        if (isNaN(quantita) || quantita < 10){
+        if (isNaN(quantita) || quantita < 0){
             alert('la quantità deve essere un numero positivo BLAAADDDD')
             return false;
         }
