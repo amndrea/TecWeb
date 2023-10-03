@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="text_red"> Lista di giorni per la dieta di {{ dieta.my_user }} </div>
+
+    {% for giorno in giorni %}
+        <div class="giorno">
+            <p>Giorno:  {{ giorno.giorno }}</p>
+            <p>Macro : {{ giorno.get_macro }} </p>
+        </div>
+    {% endfor %}
+
+    <div class="div_bassa">
+        <div style="text-align: center;">
+            {% if "nutrizionista" in user.groups.all.1.name %}
+                <form method="POST" action="{% url 'Diet:crea_giorno' dieta.pk%}">
+                    {% csrf_token %}
+                    <button class="pulsante-rosso" type="submit">Crea un nuovo giorno</button>
+                </form>
+            {% endif %}
+            <br>
+            <form method="POST" action="{% url 'home_login'%}">
+                {% csrf_token %}
+                <button class="pulsante-rosso" type="submit">Home</button>
+            </form>
+        </div>
+
+    </div>
+
+{% endblock %}

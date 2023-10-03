@@ -4,47 +4,64 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
 from .models import *
 from Users.models import MyUser
-from .forms import InsertDietaCrispyForm, InsertDettaglioDietaCrispyForm
+from .forms import InsertDietaCrispyForm, InsertDettaglioDietaCrispyForm, InsertGiornoForm
 
 
-# --------------------------------------------------------------------------------------------------- #
+# Classe per la creazione di una dieta
 class DietaCreateView(CreateView):
-    """
-    Classe che utilizzo per creare una dieta, solo i PR possono creare una dieta
-    """
     template_name = 'Diet/crea_dieta.html'
     form_class = InsertDietaCrispyForm
 
     def get_user(self):
         user_pk = self.kwargs.get('utente_pk')
-        try:
-            user = MyUser.objects.get(pk=user_pk)
-            return user
-        except Exception:
-            print("qualcosa è andato male")
+        user = MyUser.objects.get(pk=user_pk)
+        return user
 
     def form_valid(self, form):
         form.instance.my_user = self.get_user()
         return super().form_valid(form)
 
-
-    # Dopo aver creato una dieta mi redireziono nella pagina per inserire gli alimenti
     def get_success_url(self):
         ctx = self.get_context_data()
         pk = ctx["object"].pk
-        print("sono la chiave")
-        print(pk)
-        return reverse_lazy("Diet:mostra_dettaglio", kwargs={"pk": pk})
-# --------------------------------------------------------------------------------------------------- #
+        return reverse_lazy("Diet:mostra_giorni",kwargs={'dieta_pk':pk})
+        #return reverse_lazy("Diet:crea_giorno", kwargs={"dieta_pk": pk})
 
-def show_dettaglio(request):
-    pass
-# --------------------------------------------------------------------------------------------------- #
+class GiornoDietaCreateView(CreateView):
+    template_name = "Diet/crea_giorno.html"
+    form_class = InsertGiornoForm
+
+    def get_dieta(self):
+        dieta_pk = self.kwargs.get('dieta_pk')
+        dieta = Dieta.objects.get(pk=dieta_pk)
+        return dieta
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        dieta = self.get_dieta()
+        context['dieta'] = dieta
+        return context
+
+    def form_valid(self, form):
+        form.instance.dieta = self.get_dieta()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("Diet:mostra_dettaglio", kwargs={"pk": self.kwargs.get('dieta_pk')})
+
+
+# Metodo che utilizzo per mostrare i giorni già creati di una dieta
+def mostra_giorni(request, dieta_pk):
+    dieta = Dieta.objects.get(pk=dieta_pk)
+    giorni = GiornoDieta.objects.all().filter(dieta=dieta)
+    context = {
+        'dieta': dieta,
+        'giorni': giorni
+    }
+    return render(request, template_name="Diet/listagiorni.html", context=context)
+
+
 class DettaglioDietaCreateView(CreateView):
-    """
-    Classe che utilizzo per Inserire un dettaglio in una dieta
-    Dato un Alimento e data una dieta Inserisco i vari campi del Dettaglio
-    """
     template_name = 'Diet/crea_dettaglio.html'
     form_class = InsertDettaglioDietaCrispyForm
 
@@ -83,14 +100,6 @@ class DettaglioDietaCreateView(CreateView):
 
 # --------------------------------------------------------------------------------------------------- #
 def mostra_dettaglio_dieta(request, pk):
-    """
-    Metodo che utilizzo per visualizzare tutti gli alimenti da poter inserire in una dieta
-    Per ogni alimento nel template c'è un pulsante seleziona che consente di selezionare
-    l'alimento e inserirlo nella dieta
-    :param request:
-    :param pk: primary key della dieta
-    :return: render della pagina con tutti i possibili alimenti da inserire nella dieta
-    """
     dieta = Dieta.objects.get(pk=pk)
     context = {
         'pk_dieta': pk,
@@ -173,5 +182,6 @@ class MostraDietaUser(DetailView):
         except Exception:
             context['dettaglio_dieta'] = None
 
+        context['my_user'] = self.get_user()
         context['dieta'] = dieta
         return context

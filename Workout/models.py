@@ -9,9 +9,6 @@ DISTRETTO = [
     ('all','All')
 ]
 
-NUMERO_GIORNI = [('1', 1), ('2', 2), ('3', 3), ('4', 4), ('5', 5), ('6', 6), ('7', 7)]
-
-
 class Esercizio(models.Model):
     nome = models.CharField(max_length=40)
     descrizione = models.CharField(max_length=450, blank=True)
@@ -38,15 +35,17 @@ class Scheda(models.Model):
     class Meta:
         verbose_name_plural = "Schede"
 
+# Classe che mette in relazione una scheda con i giorni che la compongono
+class GiornoScheda(models.Model):
+    giorno = models.IntegerField(default=1)
+    Scheda = models.ForeignKey(Scheda, on_delete=models.CASCADE)
+    descrizione_giorno = models.CharField(max_length=300, blank=True)
 
 class DettaglioEsercizioScheda(models.Model):
-    scheda = models.ForeignKey(Scheda, on_delete=models.CASCADE)
+    giorno = models.ForeignKey(GiornoScheda, on_delete=models.CASCADE)
     esercizio = models.ForeignKey(Esercizio, on_delete=models.CASCADE)
-    giorno = models.IntegerField(default=1, choices=NUMERO_GIORNI)
+
     serie = models.IntegerField(default=0)
     ripetizioni = models.IntegerField(default=0)
     recupero = models.IntegerField(default=0)
     descrizione = models.CharField(max_length=350, blank=True)
-
-    def __str__(self):
-        pass

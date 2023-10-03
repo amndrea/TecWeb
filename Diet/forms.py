@@ -23,7 +23,15 @@ class InsertDietaCrispyForm(forms.ModelForm):
         # Quali campi consento di editare
         exclude=['my_user']
 
+class InsertGiornoForm(forms.ModelForm):
+    helper = FormHelper()
+    helper.form_id = "insert_giorno_form"
+    helper.form_method = "POST"
+    helper.add_input(Submit('Crea', 'Crea'))
 
+    class Meta:
+        model = GiornoDieta
+        fields = ['giorno']
 
 class InsertDettaglioDietaCrispyForm(forms.ModelForm):
     helper = FormHelper()
@@ -33,4 +41,6 @@ class InsertDettaglioDietaCrispyForm(forms.ModelForm):
 
     class Meta:
         model = DettaglioDieta
-        fields = ['giorni', 'pasto', 'quantita']
+        fields = ['pasto', 'quantita']
+
+
