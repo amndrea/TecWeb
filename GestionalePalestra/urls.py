@@ -32,7 +32,6 @@ urlpatterns = [
 
     # URL ai quali mostro la schermata home
     path("", mostra_home, name="home"),
-
     # URL al quale mostro la home dell'utente loggato
     path("home_login/", mostra_home_log, name="home_login")
 

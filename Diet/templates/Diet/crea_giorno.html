@@ -10,9 +10,10 @@
     <form method="POST" >
         {% csrf_token %}
         {{ form|crispy}}
-        <center>
+        <div style="text-align: center">
             <input class="pulsante-rosso" type="submit" value="Crea">
-        </center>
+            <a href="javascript:history.back();" class="pulsante-rosso">Indietro </a>
+        </div>
     </form>
 
 {% endblock %}

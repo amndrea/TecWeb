@@ -739,3 +739,158 @@ Mango
 14.9
 0.6
 60
+
+
+
+css in base.html
+<style>
+        /* Personalizzazione della navbar */
+        .navbar {
+            background-color: #CD0000;
+            padding: 10px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Personalizzazione del logo */
+        .logo strong {
+            color:#000000;
+            font-size: 28px;
+            text-decoration: none;
+        }
+
+        .nav-links li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        /* Stile dei link */
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        /* Personalizzo i link quando ci passo in cima con il mouse*/
+        .nav-links a:hover {
+            color: #FCFCFC;
+            text-decoration: underline;
+        }
+
+        .text_red {
+            background-color: #B0171F;
+            padding: 20px;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+
+        }
+
+        .pulsante-rosso{
+            background-color: #B0171F;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .div-bassa{
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        .div-bassa-2{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 20px 0;
+        }
+
+
+
+    </style>
+CD0000
+
+
+# --------------------------------------------------------------------------------------------------- #
+class MostraDietaCompleta(DetailView):
+    """
+    Classe per visualizzare i dettagli completi di una dieta data la primary key della dieta
+    """
+
+    model = Dieta
+    template_name = 'Diet/mostra_alimenti.html'
+
+    # Metodo che utilizzo per avere il riferimento all'oggetto dieta corrente
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get('pk')
+        return self.model.objects.get(pk=pk)
+
+    # Dalla dieta ottengo anche tutti i dettaglio_dieta con gli alimenti e le quantità
+    # E li passo al context per visualizzarli nel template
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        dieta = self.get_object()  # Ottengo l'oggetto dieta corrente
+        dettaglio_dieta = DettaglioDieta.objects.filter(dieta=dieta).order_by('giorni', 'pasto')
+        context['dettaglio_dieta'] = dettaglio_dieta
+        return context
+# --------------------------------------------------------------------------------------------------- #
+
+
+
+
+
+FILE LISTAGIORNI.HTML CON L'ELIMINAZIONE DI UN GIORNO
+{% extends 'base.html'%}
+
+{% block head %}
+    <style>
+    .div-bassa-2 button{
+        margin: 0 10px;
+    }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+    <div class="text_red"> Lista di giorni per la dieta di {{ dieta.my_user }} </div>
+
+    {% for giorno in giorni %}
+        <div class="giorno">
+            <p>Giorno:  {{ giorno.giorno }}</p>
+            <p>Macro : {{ giorno.get_macro }} </p>
+            <!--
+            {% if "nutrizionista" in user.groups.all.1.name %}
+                <form method="POST" action="{% url 'Diet:elimina_giorno' giorno.pk%}">
+                    {% csrf_token %}
+                    <button class="pulsante-rosso" type="submit">Crea un nuovo giorno</button>
+                </form>
+            {% endif %}
+            -->
+        </div>
+    {% endfor %}
+
+    <div class="div-bassa-2">
+            {% if "nutrizionista" in user.groups.all.1.name %}
+                <form method="POST" action="{% url 'Diet:crea_giorno' dieta.pk%}">
+                    {% csrf_token %}
+                    <button class="pulsante-rosso" type="submit">Crea un nuovo giorno</button>
+                </form>
+            {% endif %}
+            <br>
+            <form method="POST" action="{% url 'home_login'%}">
+                {% csrf_token %}
+                <button class="pulsante-rosso" type="submit">Home</button>
+            </form>
+
+    </div>
+
+{% endblock %}

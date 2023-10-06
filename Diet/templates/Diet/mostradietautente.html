@@ -1,27 +1,22 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block head %}
-    {% load static %}
+
     <style>
-        .DivAlimenti{
-            background-color: #8B0000;
+        .card-header{
+            background-color:#FF4500;
+            opacity: 0.7;
             color: white;
-            border: 1px;
-            margin: 5px;
+    }
+        .div-pulsanti{
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .colazione {
-            background-color: darkgoldenrod;
+        .div-pulsanti button {
+            margin: 0 10px;
         }
-
-        .pranzo {
-            background-color: darkslateblue;
-        }
-
-        .cena {
-            background-color: darkslategrey;
-        }
-
     </style>
 {% endblock %}
 
@@ -30,49 +25,73 @@
 
     <!-- Se ho la dieta la visualizzo -->
     {% if dieta %}
+
         <div class="text_red"> Dieta completa di {{ dieta.my_user.username }} </div>
-        <h4> Tipologia: {{ dieta.tipologia }}</h4>
-        <h5> Descrizione: {{ dieta.descrizione }}</h5>
-
-        {% for giorno in dettaglio.giorni %}
-            <p> girono</p>
-        {% endfor %}
-
-        <div class="giorno">
+        <div style="text-align: center;">
+            <h4> {{ dieta.tipologia.upper }}</h4>
+            <h5> {{ dieta.descrizione }}</h5>
+            <strong> Fine dieta {{ dieta.data_fine }}</strong>
 
 
-        </div>
-        <div class="p-3 mb-2 bg-info text-white">
-            <h3>Dieta completa di {{ dieta.my_user.username }} </h3>
-            <br>
-            <h4> Tipologia: {{ dieta.tipologia }}</h4>
-            <h5> Descrizione: {{ dieta.descrizione }}</h5>
-            <br>
-            <div class="DivAlimenti">
-                <ul>
-                    {% for dettaglio in dettaglio_dieta %}
-                        <div class="alimento {{ dettaglio.pasto }}">
-                             Giorno: {{ dettaglio.giorni }}
-                            <li> Pasto: {{ dettaglio.pasto }}</li>
-                            <li> Alimento: {{ dettaglio.alimento.nome }}</li>
-                            <li> Macro: {{ dettaglio.alimento.get_macro }}</li>
-                            <li> Quantita: {{ dettaglio.quantita }}</li>
+            {% for giorno in giorni_dieta %}
+                <div class="card">
+                    <div class="card-header"> Giorno  {{ giorno.giorno }} {{ giorno.get_macro }} </div>
+                    <div class="card-body">
+
+                        {% for dettaglio in dettagli %}
+                            {% if dettaglio.giorno == giorno %}
+                                <p>{{ dettaglio.pasto }}</p>
+                                <p> {{ dettaglio.alimento.nome }} {{ dettaglio.quantita }} g</p>
+
+                                <!-- Se sono un nutrizionista do la possibilità di modificare i dettagli -->
+                                {% if "nutrizionista" in user.groups.all.1.name %}
+                                    <form method="GET" action="{% url 'Diet:modifica_dettaglio' dettaglio.pk  %}" >
+                                        {% csrf_token %}
+                                        <button class="pulsante-rosso" type="submit">Modifica Quantita</button>
+                                    </form>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if "nutrizionista" in user.groups.all.1.name %}
                             <br>
-                        </div>
-                    {% endfor %}
-                </ul>
-            </div>
+                            <div class="div-pulsanti">
+                                <form method="GET" action="{% url 'Diet:elimina_gionro' giorno.pk  %}" >
+                                    {% csrf_token %}
+                                    <button class="pulsante-rosso" type="submit">Elimina Giorno</button>
+                                </form>
+                                <form method="POST" action="{% url 'Diet:crea_dettaglio' giorno.pk%}">
+                                    {% csrf_token %}
+                                    <button class="pulsante-rosso" type="submit">Aggiungi Alimento</button>
+                                </form>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            {% endfor %}
         </div>
+        <br>
 
         <!-- Se sono un nutrizionista do la possibilità modificarla -->
-        {% if "nutrizionista" in user.groups.all.1.name %}
+        <div class="div-pulsanti">
+            <a href="{% url 'home_login' %}" class="pulsante-rosso">Home </a>
+            {% if "nutrizionista" in user.groups.all.1.name %}
 
-        {% endif %}
+                    <form method="POST" action="{% url 'Diet:modifica_dieta' dieta.pk %}">
+                        {% csrf_token %}
+                        <button class="pulsante-rosso" type="submit">Modifica dieta</button>
+                    </form>
+
+                    <form method="POST" action="{% url 'Diet:crea_giorno' dieta.pk %}">
+                        {% csrf_token %}
+                        <button class="pulsante-rosso" type="submit">Crea giorno</button>
+                    </form>
+            {% endif %}
+        </div>
+        <br>
 
     <!-- Se non ho la dieta -->
     {% else %}
-
-
         <!-- Se sono un nutrizionista do la possibilità di crearla -->
         {% if "nutrizionista" in  user.groups.all.1.name %}
             <div class="404Dieta">
@@ -86,12 +105,9 @@
                                 <button class="pulsante-rosso" type="submit">Crea dieta</button>
                             </form>
                         </center>
-
-
                     </div>
                 </div>
             </div>
-
 
          <!-- Altrimenti se sono un untente normale do un messaggio di errore -->
         {% else %}

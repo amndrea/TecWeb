@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
+{% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <form method="post"> {% csrf_token %}
-        {{form | crispy}}
-        <input type="submit" class="btn btn-success" value="Login">
-    </form>
+
+    <div class="text_red"> Effettua il login</div>
+    <div style="text-align: center;">
+        <form method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" class="pulsante-rosso" value="Login">
+        </form>
+
+    </div>
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="text_red">Cancellazione del gionro {{ gionro.giorno }} dalla dieta di {{ my_user }}</div>
+    <br>
+    <div style="text-align: center">
+        <form method="POST">{% csrf_token %}
+        <p>Sei sicuro di voler cancellare il giorno?</p>
+        <button class="pulsante-rosso" type="submit">Conferma</button>
+    </form>
+
+    </div>
+
+
+{% endblock %}

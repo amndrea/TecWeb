@@ -32,7 +32,7 @@
                         <td>
                         <form method="GET" action="{% url 'Diet:mostradietauser' cliente.pk %}">
                             {% csrf_token %}
-                            <button type="submit">Visualizza dieta</button>
+                            <button class="pulsante-rosso " type="submit">Visualizza dieta</button>
                         </form>
                         </td>
                     {% elif "pt" in  user.groups.all.0.name %}
@@ -43,4 +43,9 @@
 
         {% endfor %}
      </table>
+
+    <div class="div-bassa-2">
+        <a href="{% url 'home_login' %}" class="pulsante-rosso">Home </a>
+    </div>
+
 {% endblock %}

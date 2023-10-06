@@ -4,20 +4,32 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <form method="POST" onsubmit="return ControllaDati()" >
-        {% csrf_token %}
-        {{ form|crispy}}
-        <input class="submit" type="submit" value="Submit">
-    </form>
+    <div class="text_red"> Inserisci i particolari del giorno </div>
+    <br>
+    <div style="text-align: center;">
+        <form method="POST" onsubmit="return ControllaDati()" >
+            {% csrf_token %}
+            {{ form|crispy}}
+            <input class="pulsante-rosso" type="submit" value="Inserisci">
+        </form>
 
-    <script> function ControllaDati(){
-        const quantita = document.getElementById('id_quantita').value;
-        if (isNaN(quantita) || quantita < 0){
-            alert('la quantità deve essere un numero positivo BLAAADDDD')
-            return false;
-        }
-        return true;
-    }
-    </script>
+            <script> function ControllaDati(){
+                const quantita = document.getElementById('id_quantita').value;
+                if (isNaN(quantita) || quantita < 0){
+                    alert('la quantità deve essere un numero positivo BLAAADDDD')
+                    return false;
+                }
+                return true;
+            }
+            </script>
+    </div>
+
+
+
+    <div class="div-bassa-2">
+        <a href="{% url 'home_login' %}" class="pulsante-rosso">Home </a>
+    </div>
+
+
 
 {% endblock %}
