@@ -1,6 +1,11 @@
 {% extends 'base.html'%}
 
 {% block head %}
+    <style>
+    .div-bassa-2 button{
+        margin: 0 10px;
+    }
+    </style>
 
 {% endblock %}
 
@@ -11,11 +16,16 @@
         <div class="giorno">
             <p>Giorno:  {{ giorno.giorno }}</p>
             <p>Macro : {{ giorno.get_macro }} </p>
+
+            {% if "nutrizionista" in user.groups.all.1.name %}
+
+
+            {% endif %}
+
         </div>
     {% endfor %}
 
-    <div class="div_bassa">
-        <div style="text-align: center;">
+    <div class="div-bassa-2">
             {% if "nutrizionista" in user.groups.all.1.name %}
                 <form method="POST" action="{% url 'Diet:crea_giorno' dieta.pk%}">
                     {% csrf_token %}
@@ -27,7 +37,6 @@
                 {% csrf_token %}
                 <button class="pulsante-rosso" type="submit">Home</button>
             </form>
-        </div>
 
     </div>
 

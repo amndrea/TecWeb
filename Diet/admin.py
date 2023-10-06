@@ -4,4 +4,4 @@ from .models import *
 # Register your models here.
 admin.site.register(Alimento)
 admin.site.register(Dieta)
-admin.site.register(DettaglioDieta)
+admin.site.register(DettaglioGiornoAlimento)
