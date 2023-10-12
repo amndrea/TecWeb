@@ -26,6 +26,7 @@ class DietaCreateView(CreateView):
     def get_success_url(self):
         ctx = self.get_context_data()
         pk = ctx["object"].pk
+
         return reverse_lazy("Diet:mostra_giorni", kwargs={'dieta_pk': pk})
 
 
@@ -104,6 +105,7 @@ class GiornoDietaDeleteView(DeleteView):
         return reverse("Diet:mostradietauser", kwargs={"pk": pk_user})
 
 
+
 # ------------------------------------------------------------------ #
 # View per creare un dettaglio di un giorno e un alimento
 # ------------------------------------------------------------------ #
@@ -156,19 +158,13 @@ class DettaglioDietaAlimentoEditView(UpdateView):
         user_pk = dettaglio.giorno.dieta.my_user.pk
         return reverse_lazy("Diet:mostradietauser", kwargs={'pk': user_pk})
 
+        #return reverse_lazy("Diet:mostra_giorni", kwargs={'dieta_pk':giorno.dieta.pk})
 
-# ------------------------------------------------------------------ #
-# Metodo che utilizzo per mostrare i giorni già creati di una dieta
-# data la primary key della dieta
-# ------------------------------------------------------------------ #
-def mostra_giorni(request, dieta_pk):
-    dieta = Dieta.objects.get(pk=dieta_pk)
-    giorni = GiornoDieta.objects.all().filter(dieta=dieta)
-    context = {
-        'dieta': dieta,
-        'giorni': giorni
-    }
-    return render(request, template_name="Diet/listagiorni.html", context=context)
+
+
+
+
+
 
 
 # ------------------------------------------------------------------ #
@@ -214,3 +210,148 @@ class MostraDietaUser(DetailView):
         context['my_user'] = self.get_user()
         context['dieta'] = dieta
         return context
+
+
+
+
+
+
+
+
+
+
+
+
+# ------------------------------------------------------------------ #
+# Metodo che utilizzo per mostrare i giorni già creati di una dieta
+# data la primary key della dieta
+# ------------------------------------------------------------------ #
+def mostra_giorni(request, dieta_pk):
+    dieta = Dieta.objects.get(pk=dieta_pk)
+    giorni = GiornoDieta.objects.all().filter(dieta=dieta)
+    context = {
+        'dieta': dieta,
+        'giorni': giorni
+    }
+    return render(request, template_name="Diet/listagiorni.html", context=context)
+
+
+
+# ------------------------------------------------------------------ #
+# View mostra la dieta completa di un utente dalla pk dell'utente
+# ------------------------------------------------------------------ #
+class MostraDietaUser(DetailView):
+    model = Dieta
+    template_name = "Diet/mostradietautente.html"
+    context_object_name = "dieta"  # Nome dell'oggetto nel template
+
+    # Metodo che utilizzo per recuperare l'user dalla pk nell'url
+    def get_user(self):
+        pk = self.kwargs.get('pk')
+        my_user = MyUser.objects.get(pk=pk)
+        return my_user
+
+    # Metodo che utilizzo per recuperare la dieta dall'user
+    def get_object(self, queryset=None):
+
+        try:
+            user = self.get_user()
+            dieta = Dieta.objects.filter(my_user=user).latest('pk')
+            return dieta
+
+        except Dieta.DoesNotExist:
+            print("la dieta non esiste")
+            print(Exception)
+
+    # Metodo che utilizzo per creare altri dati di contesto da mostrare nel
+    # template come il dettaglio di una dieta diviso in giorni e pasti
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+        dieta = self.get_object()
+        dett = []
+
+        giorni_dieta = GiornoDieta.objects.filter(dieta=dieta)
+        for giorno_dieta in giorni_dieta:
+            dettagli = DettaglioGiornoAlimento.objects.filter(giorno=giorno_dieta)
+            dett.extend(dettagli)
+        context['dettagli'] = dett
+        context['giorni_dieta'] = giorni_dieta
+        context['my_user'] = self.get_user()
+        context['dieta'] = dieta
+        return context
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+class DettaglioDietaCreateView(CreateView):
+    template_name = 'Diet/crea_dettaglio.html'
+    form_class = InsertDettaglioDietaCrispyForm
+
+    # Metodo per ottenere l'alimento
+    def get_alimento(self):
+        try:
+            alimento_pk = self.kwargs.get('alimento_pk')
+            alimento = Alimento.objects.get(pk=alimento_pk)
+            return alimento
+        except Alimento.DoesNotExist:
+            print("alimento non esiste")
+            return None
+
+    # Metodo per ottenere la dieta
+    def get_dieta(self):
+        try:
+            dieta_pk = self.kwargs.get('dieta_pk')
+            dieta = Dieta.objects.get(pk=dieta_pk)
+            return dieta
+        except Dieta.DoesNotExist:
+            print("dieta non esiste")
+            return None
+
+    # Metodo che utilizzo per impostare la dieta e l'alimento
+    # di cui voglio inserire la quantita all'interno del DB
+    def form_valid(self, form):
+        form.instance.dieta = self.get_dieta()
+        form.instance.alimento = self.get_alimento()
+        return super().form_valid(form)
+
+    # Dopo aver inserito un dettaglio-dieta
+    def get_success_url(self):
+        return reverse_lazy("Diet:mostra_dettaglio", kwargs={"pk": self.kwargs.get('dieta_pk')})
+# --------------------------------------------------------------------------------------------------- #
+"""
+
+# --------------------------------------------------------------------------------------------------- #
+def mostra_dettaglio_dieta(request, pk):
+    dieta = Dieta.objects.get(pk=pk)
+    context = {
+        'pk_dieta': pk,
+        'alimenti': Alimento.objects.all(),
+        'dieta': dieta
+    }
+    return render(request, template_name='Diet/lista_alimenti.html', context=context)
+# --------------------------------------------------------------------------------------------------- #
+
+
+

@@ -58,12 +58,10 @@ class FormDettaglioGiornoAlimento(forms.ModelForm):
         model = DettaglioGiornoAlimento
         exclude = ['giorno']
 
-
 class DettaglioDietaUpdateForm(forms.ModelForm):
     class Meta:
         model = DettaglioGiornoAlimento
         fields = ['quantita']
-
 
 
 
