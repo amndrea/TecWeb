@@ -1,38 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="alert alert-primary" role="alert">
-        Lista completa degli esercozo disponibili per la scheda {{ pk_scheda }}
-    </div>
-
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Descrizione</th>
-                <th scope="col">Distretto Target</th>
-                <th scope="col">Immagine</th>
-            </tr>
-        </thead>
-        {% for esercizio in esercizi %}
-            <tbody>
-                <tr>
-                    <th scope="row">{{ forloop.counter0 }} </th>
-                    <td> {{ esercizio.nome}}</td>
-                    <td> {{ esercizio.descrizione}}</td>
-                    <td> {{ esercizio.distretto_target }}</td>
-                    <td> <img src="/media/{{ esercizio.immagine }}"></td>
-                    <td>
-                        <form method="POST" action="{% url 'Workout:crea_dettaglio' pk_scheda esercizio.pk%}">
-                            {% csrf_token %}
-                            <button type="submit">Seleziona</button>
-                        </form>
-                    </td>
-                </tr>
-
-            </tbody>
+        {% for esercizio in object_list  %}
+            <ul>
+                <li> {{ esercizio.nome}}</li>
+                <li> {{ esercizio.descrizione}}</li>
+                <li> {{ esercizio.distretto_target }}</li>
+                <li>
+                        <img src="{{ esercizio.immagine.url }}" width="150">
+                </li>
+            </ul>
         {% endfor %}
 
-    </table>
+
 {% endblock %}

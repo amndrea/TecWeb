@@ -23,11 +23,8 @@
     font-size: 20px;
 }
 
-<<<<<<< HEAD
 /* Personalizzo i link quando ci passo in cima con il mouse*/
-=======
-        /* Personalizzo i link quando ci passo in cima con il mouse*/
->>>>>>> origin/master
+
 .nav-links a:hover {
     color: #FCFCFC;
     text-decoration: underline;
@@ -48,14 +45,13 @@
     border-radius: 5px;
     cursor: pointer;
 }
-<<<<<<< HEAD
+
 
 .pulsante-rosso a:hover{
     color: #FCFCFC;
 
 }
-=======
->>>>>>> origin/master
+
  .div-bassa{
      text-align: center;
      padding: 20px;
@@ -84,6 +80,7 @@
     border: 1px;
     margin: 5px;
 }
+
 .colazione {
     background-color: darkgoldenrod;
 }
@@ -103,9 +100,20 @@
     margin: 0 10px;
 }
 
-<<<<<<< HEAD
 .div-evidenziata{
     background-color: darkgoldenrod;
 }
-=======
->>>>>>> origin/master
+.testo-rosso{
+    color: #DC143C;
+    font-weight: bold;
+}
+
+.testo-arancione{
+    color: tomato;
+    font-weight: bold;
+}
+.testo-speciale{
+    text-decoration: underline;
+    color: red
+}
+

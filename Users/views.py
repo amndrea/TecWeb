@@ -1,13 +1,12 @@
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import Group
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from braces.views import GroupRequiredMixin
 
-from .models import MyUser
-from .forms import CreaUtenteCrispyForms, CreaNutrizionista, CreaPersonalTrainer
-
+from .forms import *
 import datetime
+from datetime import datetime as d
 
 
 # Classe che implementa la creazione di un utente grazie alla classe CreaUtenteCrispyForms
@@ -27,7 +26,6 @@ class NutrizionistaCreateView(PermissionRequiredMixin, UserCreateView):
     form_class = CreaNutrizionista
 
     def form_valid(self, form):
-        print("sono qua")
         form.instance.tipo_abbonamento = 2
         return super().form_valid(form)
 
@@ -40,6 +38,10 @@ class PersonalTrainerCreateView(PermissionRequiredMixin, UserCreateView):
         form.instance.tipo_abbonamento = 2
         return super().form_valid(form)
 
+
+# ------------------------------------------------------------------------------------------- #
+# View per visualizzare tutti gli utenti che non sono ne pt ne nutrizionisti ne superuser
+# ------------------------------------------------------------------------------------------- #
 class UtentiListView(GroupRequiredMixin, ListView):
     group_required = ["nutrizionista", "pt"]
     model = MyUser
@@ -51,3 +53,50 @@ class UtentiListView(GroupRequiredMixin, ListView):
         queryset = MyUser.objects.exclude(groups=gruppo_pt).exclude(groups=gruppo_nutrizionista)
         queryset = queryset.exclude(is_superuser=True)
         return queryset
+
+
+# ------------------------------------------------------------------------------------------- #
+# View per visualizzare la situazione personale di un utente
+# ------------------------------------------------------------------------------------------- #
+class UtenteDetailView(DetailView):
+    model = MyUser
+    template_name = "Users/situazione.html"
+    context_object_name = "user"
+
+    def get_object(self, queryset=None):
+        user = MyUser.objects.get(pk=self.kwargs.get("user_pk"))
+        return user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        data = d.now().date()
+        context['data'] = data
+        return context
+
+
+# ------------------------------------------------------------------------------------------- #
+# View generica per modificare un utente
+# ------------------------------------------------------------------------------------------- #
+
+class UtenteUpdateView(UpdateView):
+    model = MyUser
+    template_name = "Users/edit_profile.html"
+
+    def get_object(self, queryset=None):
+        user = MyUser.objects.get(pk=self.kwargs.get("user_pk"))
+        return user
+
+    def get_form_class(self):
+        cosa = self.kwargs.get("cosa_editare")
+        # restituisco il form per l'edit completo dell'utente
+        if cosa == 1:
+            return UtenteUpdateform
+        # restituisco il form per l'edit del peso
+        if cosa == 2:
+            return UtenteUpdatePeso
+        # restituisco il form per l'edit dell'altezza
+        if cosa == 3:
+            return UtenteUpdateAltezza
+
+        if cosa == 4:
+            return UtenteUpdateFoto

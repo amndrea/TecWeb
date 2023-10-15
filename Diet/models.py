@@ -49,7 +49,6 @@ class Dieta(models.Model):
 
 class GiornoDieta(models.Model):
     giorno = models.IntegerField(unique=True, auto_created=True)
-    giorno = models.IntegerField(unique=True, default=1, auto_created=True)
     dieta = models.ForeignKey(Dieta, on_delete=models.CASCADE)
     proteine = models.FloatField(default=0)
     carboidrati = models.FloatField(default=0)

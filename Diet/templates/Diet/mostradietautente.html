@@ -113,13 +113,13 @@
                 <div class="card mb-3">
                     <img src="{% static 'imgs/404_dieta.jpg' %}" class="card-img-top">
                     <div class="card-body">
-                        <center>
+                        <div style="text-align: center;">
                             <p> L'utente {{ my_user.username }}, non possiede ancora una dieta, creane una</p>
                             <form method="POST" action="{% url 'Diet:crea_dieta' my_user.pk %}">
                                 {% csrf_token %}
                                 <button class="pulsante-rosso" type="submit">Crea dieta</button>
                             </form>
-                        </center>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -130,7 +130,7 @@
                 <div class="card mb-3">
                     <img src="{% static 'imgs/404_dieta.jpg' %}" class="card-img-top">
                     <div class="card-body">
-                        <h3> <span style="color:#8B0000;"> <strong>Se desideri ricevere una dieta chiedila al tuo nutrizionista </strong> </span></h3>
+                            <h3> <span style="color:#8B0000;"> <strong>Se desideri ricevere una scheda chiedila al tuo nutrizionista </strong> </span></h3>
                         <p class="card-text">Al momento non disponi di alcuna dieta, per ricevere una dieta controlla che il tuo abbonamento sia valido e fai richiesta
                         ad un nutrizionista attraverso il link <a href="#"></a></p>
                     </div>

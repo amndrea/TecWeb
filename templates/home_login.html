@@ -39,10 +39,10 @@
                 <strong>OLYMPIA GYM </strong>
             </div>
             <ul class="nav-links">
-                <li><a href="#">Scheda</a></li>
+                <li><a href="{% url 'Workout:mosta_scheda_user' user_pk %}">Scheda</a></li>
                 <li><a href="{% url 'Diet:mostradietauser' user_pk %}">Dieta</a></li>
                 <li><a href="#">Prenotazioni</a></li>
-                <li><a href="#">Situazione Personale</a></li>
+                <li><a href="{% url 'Users:situazione' user_pk %}">Situazione Personale</a></li>
             </ul>
         </div>
 

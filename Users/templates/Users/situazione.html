@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <style>
+        .spaziatura {
+            margin-right: 50px; /* Imposta il margine desiderato */
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="text_red"> Resoconto sulla tua situazione personale di {{ user.username }}</div>
+
+    <div style="text-align: center">
+
+    <!-- Se l'abbonamento è scaduto qui visualizzo un errore -->
+    {% if user.fine_abbonamento|date > data|date %}
+        <img src="{% static "imgs/triste.jpeg" %}">
+        <div class="div-messaggio">
+            <strong><span style="color: #8B0000"> Purtroppo il tuo abbonemanto è scaduto, puoi ancora visualizzare la tua scheda
+                e la tua dieta, ma non puoi più effettuare prenotazioni per la sala pesi <br>
+                Rinnova quanto prima il tuo abbonamento per non perdere i progressi accumulati finora</span></strong><br>
+        </div>
+
+    {% else %}
+        <br>
+        <div_utente>
+            {% if user.immagine_profilo %}
+                <img src="{{ user.immagine_profilo.url }}" width="200">
+            {% endif %}
+            <strong><span style="color: #8B0000">
+                Tieni aggiornata questa sezione modificando il tuo peso, la tua altezza e la tua età ogni volta che ci sonon dei cambiamenti<br>
+                per aiutare il nostro team a strutturare al meglio il tuo piano di lavoro e la tua dieta <br></span> </strong> <br> <br>
+            <strong><span style="color: #8B0000">Peso </span> </strong>  <span class="spaziatura"></span> {{ user.peso }}
+            <span class="spaziatura"></span> <a href="{% url 'Users:edit' user.pk 2 %}">modifica</a> <br><br>
+            <strong><span style="color: #8B0000">Altezza </span> </strong> <span class="spaziatura"></span>{{ user.altezza }}
+            <span class="spaziatura"></span> <a href="{% url 'Users:edit' user.pk 3 %}">modifica</a><br><br>
+            <strong><span style="color: #8B0000">Fine abbonamento </span> </strong> <span class="spaziatura"></span>{{ user.fine_abbonamento }}<br> <br>
+            <strong><span style="color: #8B0000">Tipo di abbonamento </span> </strong> <br>
+
+                {% if user.tipo_abbonamento == 1 %}
+                    Il tuo abbonamento è di <strong><span style="color: #B0171F">primo livello</span> </strong>ciò vuol dire che hai a tua disposizione
+                    scheda e dieta, ma non puoi venire ad allaenarti da noi all' Olymia Gym <br>
+                    Se non vivi vicino alla palestra e vuoi solo farti seguire dal nostro team di professionisti questo tipo di abbonamento è ottimale <br>
+                    Tuttavia consiglaimo sempre ai neofiti del mondo del fitness di eseguire gli esercizi con qualcuno di esperto, per imparare le corrette esecuzioni <br>
+                    e preservare la salute delle articolazioni
+                {% else %}
+                    Il tuo abbonamento è di <strong><span style="color: #B0171F">secondo livello</span> </strong> ciò vuol dire che oltre alle consulenze del nostro team di esperti, hai libero accesso <br>
+                    alla palestra. Ricorda che siamo aperti dal <strong><span style="color: #B0171F"> lunedi al venerdi dalle 8:30 alle 20:30</span> </strong>, se desideri allenarti nel fine settimana <br>
+                    accordati con il personale di sala, l'ingresso va pagato a parte <del> <span style="color:red;">solamente in contanti </span></del>
+                {% endif %}
+        </div_utente>
+
+    {% endif %}
+        <div class="div-bassa-2">
+            <a href="{% url 'home_login' %}" class="pulsante-rosso"> Indietro</a>
+        </div>
+    </div>
+{% endblock %}

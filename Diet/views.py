@@ -27,8 +27,7 @@ class DietaCreateView(CreateView):
         ctx = self.get_context_data()
         pk = ctx["object"].pk
 
-        return reverse_lazy("Diet:mostra_giorni", kwargs={'dieta_pk': pk})
-
+        return reverse_lazy("home_login")
 
 # ------------------------------------------------------------------ #
 # View per la modifica di una dieta

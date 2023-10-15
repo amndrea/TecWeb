@@ -35,6 +35,6 @@ urlpatterns = [
     # URL al quale mostro la home dell'utente loggato
     path("home_login/", mostra_home_log, name="home_login")
 
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-crea_gruppi()
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# crea_gruppi()

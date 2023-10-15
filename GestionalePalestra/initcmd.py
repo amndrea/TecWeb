@@ -15,8 +15,26 @@ def crea_gruppi():
     else:
         print("gruppi gia esistenti")
 
-    lista_permessi = ['add_dieta', 'add_dettagliodieta', 'change_dieta', 'change_dettagliodieta', 'delete_dieta',
-                      'delete_dettagliodieta']
-    for perm in lista_permessi:
-        permesso = Permission.objects.get(codename=perm)
+    lista_permessi_nutrizionista = ['add_dieta','change_dieta','delete_dieta','view_dieta',
+                      'add_giornodieta','change_giornodieta','delete_giornodieta','view_giornodieta',
+                      'add_dettagliogiornoalimento','change_dettagliogiornoalimento','delete_dettagliogiornoalimento','view_dettagliogiornoalimento',
+    ]
+
+    lista_permessi_pt = [ 'add_scheda', 'change_scheda','delete_scheda','view_scheda'
+
+    ]
+
+    for perm in lista_permessi_nutrizionista:
+        try:
+            permesso = Permission.objects.get(codename=perm)
+        except Permission.DoesNotExist:
+            permesso = Permission.objects.create(codename=perm)
         nutrizionista.permissions.add(permesso)
+
+
+    for perm in lista_permessi_pt:
+        try:
+            permesso = Permission.objects.get(codename=perm)
+        except Permission.DoesNotExist:
+            permesso = Permission.objects.create(codename=perm)
+        personal_trainer.permissions.add(permesso)

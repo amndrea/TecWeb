@@ -7,15 +7,14 @@ app_name = "Workout"
 
 urlpatterns = [
 
-    # URL per creare una scheda
-    path('creascheda/', SchedaCreateView.as_view(), name="creascheda"),
+    # URL al quale creo la scheda per un utente
+    path('crea_scheda/<int:user_pk>/', SchedaCreateView.as_view(), name="crea_scheda"),
 
-    # URL per visualizzare tutti gli esercizi da poter inserire in una scheda
-    path('listaesercizi/<pk>/', listaesercizi, name="listaesercizi"),
+    #  TODO da completare la view URL al quale mostro la scheda completa di un utente
+    path('mostra_scheda/<int:user_pk>/',SchedaDetailView.as_view(),name="mosta_scheda_user"),
 
-    # URL per inserire il dettaglio di un esercizio in una scheda
-    path('creadettaglio/<int:scheda_pk>/<int:esercizio_pk>/', DettaglioCreateView.as_view(), name="crea_dettaglio"),
-
+    # URL inutile con il quale visualizzo gli esercizi
+    path('acaso/',EsercizioListView.as_view(),name="acaso"),
 
 ]
 

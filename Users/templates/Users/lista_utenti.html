@@ -35,8 +35,13 @@
                             <button class="pulsante-rosso " type="submit">Visualizza dieta</button>
                         </form>
                         </td>
-                    {% elif "pt" in  user.groups.all.0.name %}
-
+                    {% elif "pt" in  user.groups.all.1.name %}
+                        <td>
+                        <form method="GET" action="{% url 'Workout:mosta_scheda_user' cliente.pk %}">
+                            {% csrf_token %}
+                            <button class="pulsante-rosso " type="submit">Visualizza scheda</button>
+                        </form>
+                        </td>
                     {% endif %}
                 </tr>
             </tbody>

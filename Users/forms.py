@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import Group
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
+from django import forms
 
 from .models import MyUser
 
@@ -50,3 +51,38 @@ class CreaPersonalTrainer(CreaUtenteCrispyForms):
         g = Group.objects.get(name="pt")
         g.user_set.add(user)
         return user
+
+
+# --------------------------------------------------------------------------------------- #
+# Form per l'update dell'utente
+# --------------------------------------------------------------------------------------- #
+class UtenteUpdateform(forms.ModelForm):
+    helper = FormHelper()
+    helper.form_id = "edit_user_form"
+    helper.form_method = "POST"
+    helper.add_input(Submit('submit', 'submit'))
+
+    class Meta:
+        model = MyUser
+        fine_abbonamento = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), required=False)
+        fields = ['altezza', 'peso', 'fine_abbonamento', 'tipo_abbonamento']
+
+
+class UtenteUpdatePeso(UtenteUpdateform):
+    class Meta:
+        model = MyUser
+        fields = ['peso']
+
+
+class UtenteUpdateAltezza(UtenteUpdateform):
+    class Meta:
+        model = MyUser
+        fields = ['altezza']
+
+
+class UtenteUpdateFoto(UtenteUpdateform):
+    class Meta:
+        model = MyUser
+        fields = ['immagine_profilo']
+# --------------------------------------------------------------------------------------- #
+# --------------------------------------------------------------------------------------- #
