@@ -8,7 +8,7 @@ from .models import *
 # Form per l'inserimento di una scheda
 class SchedaCreateForm(forms.ModelForm):
     helper = FormHelper()
-    helper.form_id = "edit_dieta_form"
+    helper.form_id = "scheda_create_form"
     helper.form_method = "POST"
     helper.add_input(Submit('submit', 'submit'))
 
@@ -18,3 +18,23 @@ class SchedaCreateForm(forms.ModelForm):
     class Meta:
         model = Scheda
         exclude = ['my_user']
+
+class GiornoCreateForm(forms.ModelForm):
+    helper = FormHelper()
+    helper.form_id = "scheda_create_form"
+    helper.form_method = "POST"
+    helper.add_input(Submit('submit', 'submit'))
+
+    class Meta:
+        model = GiornoScheda
+        exclude = ['Scheda']
+
+class DettaglioGiornoEsercizioForm(forms.ModelForm):
+    helper = FormHelper()
+    helper.form_id = "dettaglio_create_form"
+    helper.form_method = "POST"
+    helper.add_input(Submit('submit', 'submit'))
+
+    class Meta:
+        model = DettaglioEsercizioGiorno
+        exclude = ['giorno']

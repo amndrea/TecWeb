@@ -41,7 +41,7 @@ class Scheda(models.Model):
 class GiornoScheda(models.Model):
     giorno = models.IntegerField(default=1)
     Scheda = models.ForeignKey(Scheda, on_delete=models.CASCADE)
-    descrizione_giorno = models.CharField(max_length=300, blank=True)
+    descrizione_giorno = models.CharField(max_length=400, blank=True)
 
 
 class DettaglioEsercizioGiorno(models.Model):

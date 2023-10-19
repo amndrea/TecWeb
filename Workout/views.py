@@ -5,23 +5,35 @@ from Users.models import MyUser
 from .forms import *
 
 
+# ------------------------------------------------------------------------- #
+# View per la creazione della scheda di un utente
+# ------------------------------------------------------------------------- #
 class SchedaCreateView(CreateView):
     template_name = "Workout/crea_scheda.html"
     form_class = SchedaCreateForm
 
     def get_user(self):
-        user = MyUser.objects.get(pk=self.kwargs.get('user_pk'))
-        return user
+        my_user = MyUser.objects.get(pk=self.kwargs.get('user_pk'))
+        return my_user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['my_user'] = self.get_user()
+        return context
 
     def form_valid(self, form):
-        form.instance.my_user=self.get_user()
+        form.instance.my_user = self.get_user()
+        return super().form_valid(form)
 
     def get_success_url(self):
-        def get_success_url(self):
-            ctx = self.get_context_data()
-            pk = ctx["object"].pk
+        return reverse_lazy("home_login")
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
 
-            return reverse_lazy("Diet:mostra_giorni", kwargs={'dieta_pk': pk})
+
+# ------------------------------------------------------------------------- #
+# View per la visualizzazione della scheda completa di un untente
+# ------------------------------------------------------------------------- #
 class SchedaDetailView(DetailView):
     model = Scheda
     template_name = "Workout/mostraschedautente.html"
@@ -38,7 +50,6 @@ class SchedaDetailView(DetailView):
             return scheda
         except Scheda.DoesNotExist:
             print("la scheda non esiste")
-            print(Exception)
 
     def get_context_data(self, **kwargs):
 
@@ -47,22 +58,56 @@ class SchedaDetailView(DetailView):
         my_user = self.get_user()
         context['my_user'] = my_user
         return context
-
-        """
-        giorni_dieta = GiornoDieta.objects.filter(dieta=dieta)
-        for giorno_dieta in giorni_dieta:
-            dettagli = DettaglioGiornoAlimento.objects.filter(giorno=giorno_dieta)
-            dett.extend(dettagli)
-        context['dettagli'] = dett
-        context['giorni_dieta'] = giorni_dieta
-        context['my_user'] = self.get_user()
-        context['dieta'] = dieta
-        return context
-    """
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
 
 
-
+# ------------------------------------------------------------------------- #
 # Funzione inutile, usata solo nella fase di testing per visualizzare gli esercizi
+# ------------------------------------------------------------------------- #
 class EsercizioListView(ListView):
     model = Esercizio
     template_name = "Workout/lista_esercizi.html"
+
+
+# ------------------------------------------------------------------------- #
+# View per la creazione di un giorno per scheda
+# ------------------------------------------------------------------------- #
+class GiornoSchedaCreateView(CreateView):
+    model = GiornoScheda
+    template_name = "Workout/crea_giorno.html"
+    form_class = GiornoCreateForm
+
+    def form_valid(self, form):
+        form.instance.Scheda = self.get_scheda()
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['scheda'] = self.get_scheda()
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy("Workout:crea_dettaglio", kwargs={"giorno_pk": self.object.pk})
+
+    def get_scheda(self):
+        scheda = Scheda.objects.get(pk=self.kwargs.get("scheda_pk"))
+        return scheda
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
+
+
+class DettaglioGiornoCreateView(CreateView):
+    template_name = "Workout/crea_dettaglio.html"
+    form_class = DettaglioGiornoEsercizioForm
+
+    def form_valid(self, form):
+        form.instance.giorno = self.get_giorno()
+        return super().form_valid(form)
+
+    def get_giorno(self):
+        giorno = GiornoScheda.objects.get(pk=self.kwargs.get("giorno_pk"))
+        return giorno
+
+    def get_success_url(self):
+        return reverse_lazy("Workout:mosta_scheda_user", kwargs={'user_pk':self.get_giorno().Scheda.my_user.pk})

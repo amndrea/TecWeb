@@ -2,13 +2,35 @@
 {% load static %}
 
 {% block head%}
+    <style>
+        .div-pulsanti{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+}
+        .div-pulsanti button {
+            margin: 0 10px;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
     <!-- Se ho la scheda la visualizzo -->
 
     {% if scheda %}
-        <p> scheda</p>
+
+
+        <div class="div-pulsanti">
+            <a href="{% url 'home_login' %}" class="pulsante-rosso button">Home </a>
+
+            {% if "pt" in user.groups.all.1.name %}
+                <form method="POST" action="{% url 'Workout:crea_giorno' scheda.pk %}">
+                    {% csrf_token %}
+                    <button class="pulsante-rosso button" type="submit">Crea giorno</button>
+                </form>
+            {% endif %}
+
+        </div>
 
     <!-- Se non ho la scheda -->
     {% else %}
@@ -22,6 +44,7 @@
                         <div style="text-align: center;">
                             <p> L'utente {{ my_user.username }}, non possiede ancora una scheda, creane una</p>
                             <form method="POST" action="{% url 'Workout:crea_scheda' my_user.pk %}">
+                                {% csrf_token %}
                                 <button class="pulsante-rosso" type="submit">Crea scheda</button>
                             </form>
                         </div>

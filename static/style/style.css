@@ -93,10 +93,11 @@
 }
 
 .div-pulsanti{
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-.div-pulsanti button{
+.div-pulsanti button {
     margin: 0 10px;
 }
 
@@ -107,6 +108,10 @@
     color: #DC143C;
     font-weight: bold;
 }
+.spaziatura {
+    margin-right: 50px; /* Imposta il margine desiderato */
+}
+
 
 .testo-arancione{
     color: tomato;
@@ -115,5 +120,9 @@
 .testo-speciale{
     text-decoration: underline;
     color: red
+}
+
+.testo-grande{
+    font-size: 40px;
 }
 

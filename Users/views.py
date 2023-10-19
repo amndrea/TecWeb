@@ -97,6 +97,8 @@ class UtenteUpdateView(UpdateView):
         # restituisco il form per l'edit dell'altezza
         if cosa == 3:
             return UtenteUpdateAltezza
-
         if cosa == 4:
             return UtenteUpdateFoto
+
+    def get_success_url(self):
+        return reverse_lazy("Users:situazione",  kwargs={'user_pk':self.get_object().pk})

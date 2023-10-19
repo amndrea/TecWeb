@@ -12,6 +12,8 @@ class InsertDietaCrispyForm(forms.ModelForm):
     helper.form_id = "insert_dieta_crispy_form"
     helper.form_method = "POST"
     helper.add_input(Submit('submit', 'submit'))
+    data_inizio = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), required=False)
+    data_fine = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),required=False)
 
     class Meta:
         # Su quale modello sto andando a lavorare

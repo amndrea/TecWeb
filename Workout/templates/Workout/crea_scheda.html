@@ -3,10 +3,32 @@
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 
+{% block head %}
+    <style>
+        .testo-grande{
+            font-size: 18px;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ form|crispy}}
-        <input class="submit" type="submit" value="Submit">
-    </form>
+    <div class="text_red"> Dati di {{ my_user.username }}</div>
+    <div style="text-align: center">
+        <p class="testo-grande">
+            <strong><span style="color: #8B0000">Peso </span> </strong>  <span class="spaziatura"></span> {{ my_user.peso }}<br>
+            <strong><span style="color: #8B0000">Altezza </span> </strong> <span class="spaziatura"></span>{{ my_user.altezza }}<br>
+            <strong><span style="color: #8B0000">Obiettivo </span> </strong> <span class="spaziatura"></span>{{ my_user.obiettivo }}
+        </p>
+    </div>
+
+    <div class="text_red"> Scheda per {{ my_user.username }}</div>
+    <div style="text-align: center">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy}}
+            <input class="pulsante-rosso" type="submit" value="Crea">
+        </form>
+    </div>
+
+
 {% endblock %}

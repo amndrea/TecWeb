@@ -19,6 +19,12 @@ class DietaCreateView(CreateView):
         user = MyUser.objects.get(pk=user_pk)
         return user
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['my_user'] = self.get_user()
+        return context
+
+
     def form_valid(self, form):
         form.instance.my_user = self.get_user()
         return super().form_valid(form)
