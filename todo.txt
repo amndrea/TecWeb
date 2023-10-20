@@ -1,3 +1,13 @@
+Librerie e comandi per l'installazione
+pip install Django 
+pip install django-crispy-forms
+pip install crispy-bootstrap4
+pip install django-braces
+pip install Pillow
+
 App Diet: aggiungere nella home del nutrizionista loggato la lista di utenti senza dieta
 o la lista di utenti che fanno la richiesta di modifica dieta
+Stessa cosa nella home dell'utente pt ma con la shceda
 
+
+Altra cosa importante, la home deve essere la home con le info della palestra
