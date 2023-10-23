@@ -38,3 +38,15 @@ class DettaglioGiornoEsercizioForm(forms.ModelForm):
     class Meta:
         model = DettaglioEsercizioGiorno
         exclude = ['giorno']
+
+
+class DettagliGiornoEsercizioForm (forms.ModelForm):
+    helper = FormHelper()
+    helper.form_id = "dettaglio_create_form"
+    helper.form_method = "POST"
+    helper.add_input(Submit('submit', 'submit'))
+
+
+    class Meta:
+        model = DettaglioEsercizioGiorno
+        exclude = ['giorno']

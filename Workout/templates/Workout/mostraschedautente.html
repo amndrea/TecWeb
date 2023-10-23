@@ -7,10 +7,28 @@
             display: flex;
             justify-content: center;
             align-items: center;
-}
+        }
         .div-pulsanti button {
             margin: 0 10px;
         }
+        .card-header{
+            background-color: #8B0000;
+            color: white;
+        }
+        .separator{
+            border: 1px solid red; /* Imposta il colore rosso e lo stile della linea */
+            margin: 10px 0; /* Aggiunge spazio sopra e sotto la linea (personalizzabile) */
+        }
+        .container {
+            display: flex; /* dispongo i contenuti in orizzontale */
+            align-items: center; /* allineamento verticale al centro */
+        }
+
+        .content {
+            padding: 40px; /* Spazio di riempimento per separare il contenuto dall'immagine */
+        }
+        
+
     </style>
 {% endblock %}
 
@@ -18,8 +36,50 @@
     <!-- Se ho la scheda la visualizzo -->
 
     {% if scheda %}
+        <div class="text_red">Scheda di {{my_user.username}}</div>
+        <div style="text-align: center;">
+            <h4> {{scheda.tipologia}} </h4>
+            <h5> {{scheda.descrizione}} </h5>
+            <h4> inizio {{scheda.data_inizio}} fine {{scheda.data_fine}}</h4>
+        </div>
+        
+        {% for giorno in giorni_scheda %}
+            <div style="text-align: center;">
+            
+                <div class="card">
+                    <div class="card-header"> Giorno  {{ giorno.giorno }} {{ giorno.descrizione_giorno }} </div>
+                    <div class="card-body">
 
+                        {% for dettaglio in dettagli %}
+                            {% if dettaglio.giorno == giorno %}
 
+                                <strong>{{dettaglio.esercizio.nome}}</strong> <br>
+                                <img src="{{ dettaglio.esercizio.immagine.url }}" width="200"> <br>
+                                {{ dettaglio.esercizio.descrizione }}
+                                distretto: {{ dettaglio.esercizio.distretto_target}}   
+                                <strong>
+                                    <p> serie : {{dettaglio.serie}} </p>
+                                    <p> ripetizioni: {{dettaglio.ripetizioni}} </p>
+                                    <p> recupero : {{dettaglio.recupero}} </p>
+                                </strong> 
+                                <p> {{dettaglio.descrizione}} </p>
+                                <!-- se sono un pt do la possibilità di modificare il dettaglio-->
+                            <hr class="separator">
+                            {%endif%}
+                        {%endfor%}
+                    </div>
+                </div>
+                <!-- Se sono un pt do la possibilità di aggiungere un esercizio al giorno -->
+                {% if "pt" in user.groups.all.1.name %}
+                    <br>
+                    <form method="POST" action="{% url 'Workout:crea_dettaglio' giorno.pk %}">
+                        {% csrf_token %}
+                        <button class="pulsante-rosso button" type="submit">Aggiungi esercizio</button>
+                    </form>
+                {%endif%}
+            </div> 
+        {%endfor%}
+        <br>
         <div class="div-pulsanti">
             <a href="{% url 'home_login' %}" class="pulsante-rosso button">Home </a>
 

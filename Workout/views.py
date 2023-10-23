@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from Users.models import MyUser
 from .forms import *
 
@@ -52,18 +52,24 @@ class SchedaDetailView(DetailView):
             print("la scheda non esiste")
 
     def get_context_data(self, **kwargs):
-
         context = super().get_context_data(**kwargs)
-        scheda = self.get_object()
-        my_user = self.get_user()
-        context['my_user'] = my_user
+        dett = []
+        giorni_scheda = GiornoScheda.objects.filter(Scheda=self.get_object())
+        for giorno_scheda in giorni_scheda:
+            dettagli = DettaglioEsercizioGiorno.objects.filter(giorno=giorno_scheda)
+            dett.extend(dettagli)
+        
+        context['my_user'] = self.get_user()
+        context['giorni_scheda'] = giorni_scheda
+        context['dettagli'] = dett
+        context['scheda'] = self.get_object()
         return context
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
 
 # ------------------------------------------------------------------------- #
-# Funzione inutile, usata solo nella fase di testing per visualizzare gli esercizi
+# Classe inutile, usata solo nella fase di testing per visualizzare gli esercizi
 # ------------------------------------------------------------------------- #
 class EsercizioListView(ListView):
     model = Esercizio
@@ -95,8 +101,6 @@ class GiornoSchedaCreateView(CreateView):
         return scheda
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
-
-
 class DettaglioGiornoCreateView(CreateView):
     template_name = "Workout/crea_dettaglio.html"
     form_class = DettaglioGiornoEsercizioForm
@@ -111,3 +115,11 @@ class DettaglioGiornoCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy("Workout:mosta_scheda_user", kwargs={'user_pk':self.get_giorno().Scheda.my_user.pk})
+
+
+# ------------------------------------------------------------------------- #
+#    View per modificare un dettaglio di un esercizio in un giorno
+# ------------------------------------------------------------------------- #
+class DettagliGiornoUpdateView(UpdateView):
+    model = DettaglioEsercizioGiorno
+    
