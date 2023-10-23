@@ -122,4 +122,7 @@ class DettaglioGiornoCreateView(CreateView):
 # ------------------------------------------------------------------------- #
 class DettagliGiornoUpdateView(UpdateView):
     model = DettaglioEsercizioGiorno
+    form_class = DettagliGiornoEsercizioForm
+    template_name = 'Workout/modifica_dettaglio.html'
+
     
