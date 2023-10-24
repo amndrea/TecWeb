@@ -40,6 +40,10 @@ class DettaglioGiornoEsercizioForm(forms.ModelForm):
         exclude = ['giorno']
 
 
+
+# ------------------------------------------------------------------------------- #
+#  Form per la modifica di un dettaglio Esercizio - Giorno
+# ------------------------------------------------------------------------------- #
 class DettagliGiornoEsercizioForm (forms.ModelForm):
     helper = FormHelper()
     helper.form_id = "dettaglio_create_form"
@@ -49,4 +53,20 @@ class DettagliGiornoEsercizioForm (forms.ModelForm):
 
     class Meta:
         model = DettaglioEsercizioGiorno
-        exclude = ['giorno']
+        fields = '__all__'
+
+class DettaglioUpdateSerie(DettagliGiornoEsercizioForm):
+    class Meta:
+        model = DettaglioEsercizioGiorno
+        fields = ['serie']
+
+class DettaglioUpdateRipetizioni(DettagliGiornoEsercizioForm):
+    class Meta:
+        model = DettaglioEsercizioGiorno
+        fields = ['ripetizioni']
+
+class DettaglioUpdateRecupero(DettagliGiornoEsercizioForm):
+    class Meta:
+        model = DettaglioEsercizioGiorno
+        fields = ['recupero']
+

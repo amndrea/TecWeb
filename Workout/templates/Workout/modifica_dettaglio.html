@@ -1,2 +1,16 @@
 {% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
 
+{% block content %}
+    <div class="text_red"> Modifica esercizio per la scheda di {{ dettaglio.giorno.Scheda.my_user }}</div>
+    <div style="text-align: center">
+        <form method="POST" >
+        {% csrf_token %}
+        {{ form|crispy}}
+        <input class="pulsante-rosso" type="submit" value="Salva Modifiche">
+    </form>
+    </div>
+
+
+{% endblock %}

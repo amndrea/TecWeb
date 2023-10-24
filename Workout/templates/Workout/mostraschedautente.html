@@ -58,15 +58,50 @@
                                 {{ dettaglio.esercizio.descrizione }}
                                 distretto: {{ dettaglio.esercizio.distretto_target}}   
                                 <strong>
-                                    <p> serie : {{dettaglio.serie}} </p>
-                                    <p> ripetizioni: {{dettaglio.ripetizioni}} </p>
-                                    <p> recupero : {{dettaglio.recupero}} </p>
+                                    <p> serie : {{dettaglio.serie}}
+                                        {% if "pt" in user.groups.all.1.name %}
+                                            <form method="GET" action="{% url 'Workout:modifica_dettaglio' dettaglio.pk 1 %}" >
+                                                {% csrf_token %}
+                                                <button class="pulsante-rosso" type="submit">Modifica Serie</button>
+                                            </form>
+                                        {% endif %}
+                                    </p>
+                                    <p> ripetizioni: {{dettaglio.ripetizioni}}
+                                        {% if "pt" in user.groups.all.1.name %}
+                                            <form method="GET" action="{% url 'Workout:modifica_dettaglio' dettaglio.pk 2 %}" >
+                                                {% csrf_token %}
+                                                <button class="pulsante-rosso" type="submit">Modifica Ripetizioni</button>
+                                            </form>
+                                        {% endif %}
+                                    </p>
+                                    <p> recupero : {{dettaglio.recupero}}
+                                        {% if "pt" in user.groups.all.1.name %}
+                                            <form method="GET" action="{% url 'Workout:modifica_dettaglio' dettaglio.pk 3 %}" >
+                                                {% csrf_token %}
+                                                <button class="pulsante-rosso" type="submit">Modifica Recupero</button>
+                                            </form>
+                                        {% endif %}
+                                    </p>
                                 </strong> 
                                 <p> {{dettaglio.descrizione}} </p>
+                                <!-- Posso anche eliminare un dettaglio da una scheda -->
+                                {% if "pt" in user.groups.all.1.name %}
+                                    <form method="GET" action="{% url 'Workout:elimina_dettaglio' dettaglio.pk my_user.pk %}" >
+                                        {% csrf_token %}
+                                        <button class="pulsante-rosso" type="submit">Elimina Esercizio</button>
+                                    </form>
+                                {% endif %}
                                 <!-- se sono un pt do la possibilità di modificare il dettaglio-->
                             <hr class="separator">
                             {%endif%}
                         {%endfor%}
+                    {% if "pt" in user.groups.all.1.name %}
+                        <form method="GET" action="{% url 'Workout:elimina_giorno' giorno.pk my_user.pk %}">
+                            {% csrf_token %}
+                            <button class="pulsante-rosso button" type="submit">Elimina giorno</button>
+                        </form>
+                    {% endif %}
+
                     </div>
                 </div>
                 <!-- Se sono un pt do la possibilità di aggiungere un esercizio al giorno -->

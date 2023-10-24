@@ -1,6 +1,7 @@
+from django.http import Http404
 from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView, UpdateView
+from django.urls import reverse_lazy, reverse
+from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from Users.models import MyUser
 from .forms import *
 
@@ -27,6 +28,8 @@ class SchedaCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy("home_login")
+
+
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
@@ -58,12 +61,14 @@ class SchedaDetailView(DetailView):
         for giorno_scheda in giorni_scheda:
             dettagli = DettaglioEsercizioGiorno.objects.filter(giorno=giorno_scheda)
             dett.extend(dettagli)
-        
+
         context['my_user'] = self.get_user()
         context['giorni_scheda'] = giorni_scheda
         context['dettagli'] = dett
         context['scheda'] = self.get_object()
         return context
+
+
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
@@ -99,6 +104,8 @@ class GiornoSchedaCreateView(CreateView):
     def get_scheda(self):
         scheda = Scheda.objects.get(pk=self.kwargs.get("scheda_pk"))
         return scheda
+
+
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 class DettaglioGiornoCreateView(CreateView):
@@ -114,7 +121,7 @@ class DettaglioGiornoCreateView(CreateView):
         return giorno
 
     def get_success_url(self):
-        return reverse_lazy("Workout:mosta_scheda_user", kwargs={'user_pk':self.get_giorno().Scheda.my_user.pk})
+        return reverse_lazy("Workout:mostra_scheda_user", kwargs={'user_pk': self.get_giorno().Scheda.my_user.pk})
 
 
 # ------------------------------------------------------------------------- #
@@ -122,7 +129,52 @@ class DettaglioGiornoCreateView(CreateView):
 # ------------------------------------------------------------------------- #
 class DettagliGiornoUpdateView(UpdateView):
     model = DettaglioEsercizioGiorno
-    form_class = DettagliGiornoEsercizioForm
     template_name = 'Workout/modifica_dettaglio.html'
+    context_object_name = 'dettaglio'
 
-    
+    def get_object(self, queryset=None):
+        dettaglio = DettaglioEsercizioGiorno.objects.get(pk=self.kwargs.get("dettaglio_pk"))
+        return dettaglio
+
+    def get_form_class(self):
+        cosa = self.kwargs.get("cosa")
+        # form per modificare le serie
+        if cosa == 1:
+            return DettaglioUpdateSerie
+        # form per modificare le ripetizioni
+        elif cosa == 2:
+            return DettaglioUpdateRipetizioni
+        # form per modificare il tempo di recupero
+        else:
+            return DettaglioUpdateRecupero
+
+    def get_success_url(self):
+        dettaglio = self.get_object()
+        giorno_scheda = dettaglio.giorno
+        utente_pk = giorno_scheda.Scheda.my_user.pk
+        return reverse_lazy("Workout:mostra_scheda_user", kwargs={'user_pk': utente_pk})
+
+
+# ------------------------------------------------------------------------- #
+# View per le eliminazioni di un giorno da una scheda o di un dettaglio da
+# una scheda, entrambe le view ereditano dal DeleteOggettoView
+# ------------------------------------------------------------------------- #
+class DeleteOggettoView(DeleteView):
+    template_name = "Workout/delete.html"
+
+    def get_success_url(self):
+        return reverse("Workout:mostra_scheda_user", kwargs={'user_pk': self.kwargs.get("utente_pk")})
+
+class DeleteGiorno(DeleteOggettoView):
+    model = GiornoScheda
+
+    def get_object(self, queryset=None):
+        giorno = GiornoScheda.objects.get(pk=self.kwargs.get("pk"))
+        return giorno
+
+class DeleteDettaglio(DeleteOggettoView):
+    model = DettaglioEsercizioGiorno
+
+    def get_object(self, queryset=None):
+        dettaglio = DettaglioEsercizioGiorno.objects.get(pk=self.kwargs.get("pk"))
+        return dettaglio

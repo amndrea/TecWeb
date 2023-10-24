@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="text_red">Sicuro di voler procedere con l'eliminazione ? </div>
+    <br>
+    <div class="div-bassa-2">
+        <form method="POST">{% csrf_token %}
+            <button class="pulsante-rosso" type="submit">Conferma</button>
+        </form>
+    </div>
+
+
+
+
+
+{% endblock %}

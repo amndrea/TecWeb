@@ -91,7 +91,6 @@ class GiornoDietaDeleteView(DeleteView):
         return giorno
 
     def get_user(self):
-        print("sono qua")
         giorno = self.get_object()
         pk_user = giorno.dieta.my_user.pk
         return pk_user
