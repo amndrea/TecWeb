@@ -27,11 +27,15 @@ urlpatterns = [
     path("workout/", include("Workout.urls")),
     path("diet/", include("Diet.urls")),
     path("user/", include("Users.urls")),
+    path("prenotazioni/",include("Prenotazioni.urls")),
+
+    # LOGIN E LOGOUT
     path("login/", auth_views.LoginView.as_view(), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
 
     # URL ai quali mostro la schermata home
     path("", mostra_home, name="home"),
+
     # URL al quale mostro la home dell'utente loggato
     path("home_login/", mostra_home_log, name="home_login")
 
