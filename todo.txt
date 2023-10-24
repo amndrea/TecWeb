@@ -1,3 +1,23 @@
+Traccia Completa
+Una web app per la gestione di una palestra dove ci sono varie tipologie di utenti:
+1) Utente non registrato che può solamente visualizzare la pagina con le informazioni generali della palestra, per le altre operazioni deve registrarsi.
+2) Utente registrato, che in base al tipo di abbonamento che sottoscrive può ricevere una scheda, una dieta, e la possibilità di effettuare delle prenotazioni della sala pesi, in quanto per garantire a tutti la possibilità di allenarsi in comodità, la sala pesi ha una capienza massima oraria.
+Questi utenti nella loro area personale possono visualizzare la propria scheda, la propria dieta e la propria situazione personale.
+
+Poi ci sono gli utenti che nella palestra lavorano, solo l'admin può crearli, i privilegi di questi utenti sono definiti dai gruppi
+3) Utente nutrizionista che può creare e modificare le diete dei clienti
+4) Utente personal trainer che può creare e modificare le schede dei clienti
+5) Admin, ha accesso a qualsiasi cosa
+
+Gli utenti nutrizionista e personal trainer, che in palestra lavorano, possono anche modificare la data di fine abbonamento degli utenti.
+
+Gli utenti possono in oltre parlare con nutrizionisti e personal trainer con una chat
+
+
+
+
+
+# -----------------------------------------------------------------------------------------------------------------#
 Librerie e comandi per l'installazione
 pip install Django 
 pip install django-crispy-forms
@@ -11,3 +31,6 @@ Stessa cosa nella home dell'utente pt ma con la shceda
 
 
 Altra cosa importante, la home deve essere la home con le info della palestra
+
+
+

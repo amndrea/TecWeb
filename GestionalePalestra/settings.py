@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'Diet',
     'Workout',
-    'Users'
+    'Users',
+    'Prenotazioni'
 ]
 
 MIDDLEWARE = [
