@@ -28,6 +28,7 @@ urlpatterns = [
     path("diet/", include("Diet.urls")),
     path("user/", include("Users.urls")),
     path("prenotazioni/",include("Prenotazioni.urls")),
+    path("chat/",include("Chat.urls")),
 
     # LOGIN E LOGOUT
     path("login/", auth_views.LoginView.as_view(), name="login"),

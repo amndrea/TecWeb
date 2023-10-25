@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'Diet',
     'Workout',
     'Users',
-    'Prenotazioni'
+    'Prenotazioni',
+    'Chat'
 ]
 
 MIDDLEWARE = [
