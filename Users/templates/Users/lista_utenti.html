@@ -41,7 +41,9 @@
                             {% csrf_token %}
                             <button class="pulsante-rosso " type="submit">Visualizza scheda</button>
                         </form>
+
                         </td>
+                        <td><button class="pulsante-rosso" type="button" onclick="window.location.href='{% url 'Chat:chat' request.user.pk cliente.pk %}'">chat</button> </td>
                     {% endif %}
                 </tr>
             </tbody>
