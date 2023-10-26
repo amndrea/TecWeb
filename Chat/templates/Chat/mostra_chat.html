@@ -1,9 +1,69 @@
 {% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
 
+{% block head %}
+    <style>
+        .messaggio-inviato {
+            background-color: #8B0000;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px;
+            text-align: right;
+            float: right; /* Allinea a destra */
+        }
+
+        /* Stile per i messaggi ricevuti (sfondo rosso) allineati a sinistra */
+        .messaggio-ricevuto {
+            background-color: red;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px;
+            text-align: left;
+            float: left; /* Allinea a sinistra */
+        }
+
+        /* Contenitore principale della chat con margine */
+        .chat-container {
+            width: 30%; /* Larghezza del 30% della finestra */
+            margin: 20px auto; /* Margine su tutti i lati */
+            padding: 20px; /* Spazio interno al contenitore */
+            overflow: auto; /* Per gestire l'overflow dei messaggi */
+        }
+
+        .messaggio-per-utente{
+            text-align: center;
+            background-color: brown;
+            color: white;
+            font-size: 24px;
+            margin-left: 90px;
+            margin-right: 90px;
+}
+    </style>
+{% endblock %}
 {% block content %}
-    {% if chat %}
-        <p> chat esiste</p>
-    {% else %}
 
-    {% endif %}
+    <div class="text_red"> Chat tra {{ chat.utente_1.username }} e  {{ chat.utente_2.username }}</div>
+        {% if messaggi %}
+            <div class="chat-container">
+                {% for messaggio in messaggi %}
+                    {% if messaggio.mittente == chat.utente_1.pk %}
+                        <div class="messaggio-inviato"> {{ messaggio.testo }} </div>
+                    {% else %}
+                        <div class="messaggio-ricevuto"> {{ messaggio.testo }} </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <br>
+            <div class="messaggio-per-utente"> Non ci sono ancora messaggi in questa chat</div>
+
+        {% endif %}
+
+    <div class="div-bassa-2">
+        <a href="javascript:history.back()" class="pulsante-rosso">Indietro</a>
+    </div>
+
+
 {% endblock %}

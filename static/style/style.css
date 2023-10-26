@@ -127,4 +127,38 @@
 }
 
 
+/* Stile della chat */
+.messaggio-inviato {
+    background-color: orange;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    text-align: right;
+    float: right; /* Allinea a destra */
+}
+ /* Stile per i messaggi ricevuti (sfondo rosso) allineati a sinistra */
+.messaggio-ricevuto {
+    background-color: red;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    text-align: left;
+    float: left; /* Allinea a sinistra */
+}
+ /* Contenitore principale della chat con margine */
+.chat-container {
+    width: 30%; /* Larghezza del 30% della finestra */
+    margin: 20px auto; /* Margine su tutti i lati */
+    padding: 20px; /* Spazio interno al contenitore */
+    overflow: auto; /* Per gestire l'overflow dei messaggi */
+}
+
+
+.messaggio-per-utente{
+    text-align: center;
+    background-color: brown;
+    color: white;
+    font-size: 20px;
+}
 /* Stile del calendario */
