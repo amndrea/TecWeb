@@ -19,9 +19,7 @@
                 <div class="card-body">
 
                     <h5 class="card-title">Personal Trainer </h5>
-                    <a href="{% url 'Chat:mostra_chat' personal_trainer.pk user.pk  %}" class="btn  pulsante-rosso">Chat</a>
-                    <p> {{ personal_trainer.pk }}</p>
-                    {{ user.pk }}
+                    <a href="{% url 'Chat:chat' personal_trainer.pk user.pk  %}" class="btn  pulsante-rosso">Chat</a>
                 </div>
             </div>
             <br>
@@ -31,8 +29,8 @@
             <div class="card">
                 <h5 class="card-header">{{ nutrizionista.username.upper }}</h5>
                 <div class="card-body">
-
                     <h5 class="card-title">Nutrizionista </h5>
+                     <a href="{% url 'Chat:chat' nutrizionista.pk user.pk  %}" class="btn  pulsante-rosso">Chat</a>
                 </div>
             </div>
         {% endfor %}
