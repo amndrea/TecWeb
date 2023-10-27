@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <style>
+    .card-header{
+        background-color: #8B0000;
+        color: white;
+    }
+
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="text_red"> Staff di Olympia Gym</div>
+    <br>
+    <div style="text-align: center">
+        {% for personal_trainer in pt %}
+            <div class="card">
+                <h5 class="card-header">{{ personal_trainer.username.upper }}</h5>
+                <div class="card-body">
+
+                    <h5 class="card-title">Personal Trainer </h5>
+                    <a href="{% url 'Chat:mostra_chat' personal_trainer.pk user.pk  %}" class="btn  pulsante-rosso">Chat</a>
+                    <p> {{ personal_trainer.pk }}</p>
+                    {{ user.pk }}
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+
+        {% for nutrizionista in nutrizionista %}
+            <div class="card">
+                <h5 class="card-header">{{ nutrizionista.username.upper }}</h5>
+                <div class="card-body">
+
+                    <h5 class="card-title">Nutrizionista </h5>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="div-bassa-3">
+        <a href="{% url 'home_login' %}" class="btn pulsante-rosso">Indietro</a>
+    </div>
+
+
+{% endblock %}

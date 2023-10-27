@@ -102,3 +102,22 @@ class UtenteUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy("Users:situazione",  kwargs={'user_pk':self.get_object().pk})
+
+
+# ------------------------------------------------------------------------------------------- #
+# View per visualizzare gli utenti che sono nutrizionisti o personal trainer
+# ------------------------------------------------------------------------------------------- #
+class StaffListView(ListView):
+    model = MyUser
+    template_name = "Users/lista_staff.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        gruppo_pt = Group.objects.get(name="pt")
+        gruppo_nutrizionista = Group.objects.get(name="nutrizionista")
+
+        context['pt'] = MyUser.objects.filter(groups__in=[gruppo_pt])
+        context['nutrizionista'] = MyUser.objects.filter(groups__in=[ gruppo_nutrizionista])
+
+        return context

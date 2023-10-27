@@ -29,7 +29,7 @@
     color: #FCFCFC;
     text-decoration: underline;
 }
- .text_red {
+.text_red {
      background-color: #B0171F;
      padding: 20px;
      color: white;
@@ -52,7 +52,7 @@
 
 }
 
- .div-bassa{
+.div-bassa{
      text-align: center;
      padding: 20px;
      position: fixed;
@@ -60,6 +60,7 @@
      left: 0;
      right: 0;
  }
+
 .div-bassa-2{
     position: fixed;
     bottom: 0;
@@ -71,6 +72,18 @@
 }
 .div-bassa-2 button {
     margin: 0 20px; /* Aggiunge spazio tra i pulsanti */
+}
+
+.div-bassa-3 {
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 20px 0;
+    background-color: white; /* Colore di sfondo per coprire il contenuto sottostante */
+
 }
 
 
@@ -133,25 +146,27 @@
     color: white;
     padding: 10px;
     border-radius: 10px;
-    margin: 10px;
+    margin: 0px ; /* Riduci il margine tra i messaggi inviati */
     text-align: right;
     float: right; /* Allinea a destra */
 }
- /* Stile per i messaggi ricevuti (sfondo rosso) allineati a sinistra */
+
 .messaggio-ricevuto {
-    background-color: red;
+    background-color: #8B0000;
+    color: white;
     padding: 10px;
     border-radius: 10px;
-    margin: 10px;
+    margin: 0px; /* Riduci il margine tra i messaggi ricevuti */
     text-align: left;
     float: left; /* Allinea a sinistra */
 }
- /* Contenitore principale della chat con margine */
+
 .chat-container {
-    width: 30%; /* Larghezza del 30% della finestra */
-    margin: 20px auto; /* Margine su tutti i lati */
-    padding: 20px; /* Spazio interno al contenitore */
-    overflow: auto; /* Per gestire l'overflow dei messaggi */
+    width: 30%;
+    margin: auto;
+    padding: 20px;
+    overflow: auto;
+    display: flex; /* Utilizza il modello flex */
 }
 
 
@@ -161,4 +176,7 @@
     color: white;
     font-size: 20px;
 }
-/* Stile del calendario */
+
+.input-larga {
+    width: 100%;
+}

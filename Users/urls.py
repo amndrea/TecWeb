@@ -16,6 +16,9 @@ urlpatterns = [
     # URL al quale un pt o un nutrizionista visualizzano la lista dei clienti
     path('listautenti/', UtentiListView.as_view(), name="listautenti"),
 
+    # URL al quale visualizzo i pt e i nutrizionisti da cliente per poterci chattare
+    path('lista_staff/',StaffListView.as_view(),name="lista_staff"),
+
     # URL al quale un utente visualizza la propria situazione personale
     path('situazione/<int:user_pk>/',UtenteDetailView.as_view(),name="situazione"),
 
