@@ -1,8 +1,123 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="text_red"> Calendario prenotazioni</div>
-    <div style="text-align: center">
+    <div class="text_red">Calendario prenotazioni</div>
+    <br>
+    <center>
 
-    </div>
+
+<div>
+    <a id="prevMonth" href="#">Mese Precedente</a>
+    <span id="currentMonthYear"></span>
+    <a id="nextMonth" href="#">Mese Successivo</a>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>Domenica</th>
+            <th>Lunedì</th>
+            <th>Martedì</th>
+            <th>Mercoledì</th>
+            <th>Giovedì</th>
+            <th>Venerdì</th>
+            <th>Sabato</th>
+        </tr>
+    </thead>
+    <tbody id="calendarBody"></tbody>
+</table>
+
+</center>
+       <div id="selectedDay">Giorno selezionato: </div>
+    <script>
+        const calendarBody = document.getElementById("calendarBody");
+        const currentMonthYear = document.getElementById("currentMonthYear");
+        const prevMonthButton = document.getElementById("prevMonth");
+        const nextMonthButton = document.getElementById("nextMonth");
+
+
+         // Ottieni l'anno e il mese dall'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const yearParam = urlParams.get("year");
+        const monthParam = urlParams.get("month");
+
+        // Imposta l'anno e il mese predefiniti
+        let currentDate;
+        if (yearParam && monthParam) {
+            currentDate = new Date(yearParam, monthParam - 1, 1); // Mese è zero-based
+        } else {
+            currentDate = new Date(); // Utilizza la data odierna come predefinita
+        }
+
+        function updateCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const firstDay = new Date(year, month, 1).getDay();
+
+            currentMonthYear.textContent = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long' }).format(currentDate);
+
+        let dayCount = 1;
+        let calendarHTML = "";
+
+        for (let row = 0; row < 6; row++) {
+            calendarHTML += "<tr>";
+            for (let col = 0; col < 7; col++) {
+                if ((row === 0 && col < firstDay) || dayCount > daysInMonth) {
+                    calendarHTML += "<td></td>";
+                } else {
+                    calendarHTML += `<td><button class="cell-button">${dayCount}</button></td>`;
+                    dayCount++;
+                }
+            }
+            calendarHTML += "</tr>";
+        }
+
+        calendarBody.innerHTML = calendarHTML;
+        const cellButtons = document.querySelectorAll(".cell-button");
+        cellButtons.forEach((button,index) => {
+            button.addEventListener("click",function (){
+                const day = index +1;
+                selectedDay.textContent = "Giorno selezionato: " + day;
+            });
+        });
+        }
+
+        updateCalendar();
+
+        const prevMonthLink = document.getElementById("prevMonth");
+        const nextMonthLink = document.getElementById("nextMonth");
+
+        prevMonthLink.addEventListener("click", function (e) {
+            e.preventDefault(); // Impedisce al link di navigare a un nuovo URL
+            var currentURL = window.location.origin + window.location.pathname;
+             currentDate.setMonth(currentDate.getMonth() - 1);
+
+            // Aggiorna l'URL con i nuovi parametri
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth() + 1; // I mesi sono zero-based, quindi aggiungi 1
+            const queryParams = `?year=${year}&month=${month}`;
+
+            history.replaceState({}, '', queryParams);
+            var newURL = currentURL + queryParams;
+            window.location.href = newURL;
+        });
+
+        nextMonthLink.addEventListener("click", function (e) {
+            e.preventDefault(); // Impedisce al link di navigare a un nuovo URL
+            var currentURL = window.location.origin + window.location.pathname;
+            currentDate.setMonth(currentDate.getMonth() + 1);
+
+
+            // Aggiorna l'URL con i nuovi parametri
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth() + 1; // I mesi sono zero-based, quindi aggiungi 1
+            const queryParams = `?year=${year}&month=${month}`;
+
+            history.replaceState({}, '', queryParams);
+            var newURL = currentURL + queryParams;
+            window.location.href = newURL;
+        });
+
+    </script>
+
 {% endblock %}
