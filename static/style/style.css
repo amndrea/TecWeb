@@ -180,3 +180,21 @@
 .input-larga {
     width: 100%;
 }
+
+/* Stile del calendario */
+.cell-default {
+    background-color: #8B0000;
+    color: #FCFCFC;
+}
+
+.cell-sabato {
+    background-color: #8B0000;
+    color: #FCFCFC;
+}
+
+ .cell-domenica {
+     background-color: cornflowerblue;
+     color: #FCFCFC;
+ }
+
+
