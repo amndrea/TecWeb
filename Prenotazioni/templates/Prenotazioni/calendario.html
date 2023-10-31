@@ -36,13 +36,14 @@
             <tbody id="calendarBody"></tbody>
         </table>
         <br>
-    <div class="pulsanti">
+    <div class="div-bassa-2">
         <button  id="prevMonth" class="pulsante-rosso" href="#">Mese Precedente</button>
         <button id="nextMonth" href="#" class="pulsante-rosso">Mese Successivo</button>
+
+
     </div>
 
 </center>
-       <div id="selectedDay">Giorno selezionato: </div>
     <script>
         const calendarBody = document.getElementById("calendarBody");
         const currentMonthYear = document.getElementById("currentMonthYear");
@@ -98,7 +99,10 @@
             cells.forEach((cell) => {
                 cell.addEventListener("click", function () {
                     const day = this.getAttribute("data-day");
-                    selectedDay.textContent = "Giorno selezionato: " + day;
+                    const year = currentDate.getFullYear();
+                    const month = currentDate.getMonth() +1;
+                    const redirectURL = `/prenotazioni/mostra_giorno/${year}/${month}/${day}`;
+                    window.location.href = redirectURL;
                 });
             });
         /**

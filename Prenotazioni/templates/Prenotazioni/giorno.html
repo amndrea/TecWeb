@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% if not doemnica %}
+        <div class="text_red"> {{ giorno.anno }} {{ giorno.mese }} {{ giorno.giorno }}</div>
+    {% else %}
+        <div class="text_red"> Olympia Gym è chiusa domenica </div>
+        <div style="text-align: center">
+            <img src="{% static "imgs/triste.jpeg" %}">
+            <h4> La palestra è chiusa di domencia</h4>
+            <del> pagando un piccolo extra è possibile allenarsi anche di domenica, chiedi
+                  in reception  </del>
+        </div>
+        <div class="div-bassa-2">
+            <a href="{% url 'Prenotazioni:calendario' %}" class="pulsante-rosso">Indietro</a>
+        </div>
+    {% endif %}
+{% endblock %}

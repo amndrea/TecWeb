@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="text_red"> Impossibile prenotare </div>
+
+    <div class="div-bassa-2">
+        <a href="{% url 'Prenotazioni:calendario' %}" class="pulsante-rosso">Indietro</a>
+    </div>
+{% endblock %}
