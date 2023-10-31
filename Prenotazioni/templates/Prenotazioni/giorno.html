@@ -2,8 +2,31 @@
 {% load static %}
 
 {% block content %}
-    {% if not doemnica %}
+    {% if not domenica %}
         <div class="text_red"> {{ giorno.anno }} {{ giorno.mese }} {{ giorno.giorno }}</div>
+        <div style="text-align: center">
+             <h4> <span style="color: #8B0000" ><strong> Scegli l'orario per l'ingresso in palestra</strong></span> </h4></div>
+
+             <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Orario</th>
+                    </tr>
+                </thead>
+                {% for orario in orari %}
+                    <tbody>
+                        <th scope="row">{{ orario }} </th>
+                    <td class="text-right">
+                        <form method="GET" action="{% url 'Prenotazioni:prenota' orario giorno.pk user.pk%}">
+                            {% csrf_token %}
+                            <button class="pulsante-rosso " type="submit">Prenota</button>
+                        </form>
+
+                        </td>
+                {% endfor %}
+                    </tbody>
+             </table>
+
     {% else %}
         <div class="text_red"> Olympia Gym è chiusa domenica </div>
         <div style="text-align: center">
@@ -13,7 +36,7 @@
                   in reception  </del>
         </div>
         <div class="div-bassa-2">
-            <a href="{% url 'Prenotazioni:calendario' %}" class="pulsante-rosso">Indietro</a>
+            <a href="{% url 'Prenotazioni:calendario' user.pk%}" class="pulsante-rosso">Indietro</a>
         </div>
     {% endif %}
 {% endblock %}

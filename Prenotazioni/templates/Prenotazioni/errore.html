@@ -3,8 +3,15 @@
 
 {% block content %}
     <div class="text_red"> Impossibile prenotare </div>
+    <div style="text-align: center">
+        <br>
+        <h4> <span style="color: #8B0000" ><strong> Non è possibile prenotare un ingresso in palestra
+        in un giorno antecedente ad oggi</strong></span> </h4>
+        <img src="{% static "imgs/triste.jpeg" %}">
+        <h4> <span style="color: #8B0000" ><strong> Torna indietro e prenota in una data corretta</strong></span> </h4>
+    </div>
 
     <div class="div-bassa-2">
-        <a href="{% url 'Prenotazioni:calendario' %}" class="pulsante-rosso">Indietro</a>
+        <a href="{% url 'Prenotazioni:calendario' user.pk %}" class="pulsante-rosso">Indietro</a>
     </div>
 {% endblock %}

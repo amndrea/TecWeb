@@ -41,7 +41,7 @@
             <ul class="nav-links">
                 <li><a href="{% url 'Workout:mostra_scheda_user' user_pk %}">Scheda</a></li>
                 <li><a href="{% url 'Diet:mostradietauser' user_pk %}">Dieta</a></li>
-                <li><a href="#">Prenotazioni</a></li>
+                <li><a href="{% url 'Prenotazioni:calendario' user_pk %}">Prenotazioni</a></li>
                 <li><a href="{% url 'Users:situazione' user_pk %}">Situazione Personale</a></li>
                 <li><a href="{% url 'Users:lista_staff' %}">Visualizza staff </a></li>
             </ul>
