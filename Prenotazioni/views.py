@@ -48,8 +48,11 @@ def mostra_giorno(request, year, month, day):
         ctx['orari'] = orari
         return render(request, "Prenotazioni/giorno.html",ctx)
 
-def effettua_prenotazione(request, orario, giorno_pk, utente_pk):
 
+
+
+def effettua_prenotazione(request, orario, giorno_pk, utente_pk):
+    ctx = {}
     # Conversione da orario in formato stringa a intero
     i = orario.find(":")
     orario = orario[0:i]
@@ -67,16 +70,39 @@ def effettua_prenotazione(request, orario, giorno_pk, utente_pk):
     # Controllo che la prenotazione dell'utente non ci sia gia in quel giorno e in quell'ora
     # Se non c'è la inserisco e la
     giorno = Giorno.objects.get(pk=giorno_pk)
-    try:
-        prenotazione = Prenotazione.objects.get(giorno=giorno, user=my_user, ora=orario)
-        print("prenotazione gia effettuata merda")
+    prenotazioni = Prenotazione.objects.filter(giorno=giorno).filter(ora=orario)
 
-    except ObjectDoesNotExist:
-        prenotazione = Prenotazione()
-        prenotazione.giorno = giorno
-        prenotazione.user = my_user
-        prenotazione.ora = orario
-        prenotazione.save()
-        print("prenotazione creata")
+    i = 0
+    for prenotazione in prenotazioni:
+        i=i+1
 
-    return render(request, "Prenotazioni/prenota.html")
+    # Se sono a capienza massima
+    if i >= 3:
+        ctx['pieno'] = True
+        # Controllo di non aver gia effettuato la prenotazione, per il context
+        try:
+            prenotazione = Prenotazione.objects.get(giorno=giorno, user=my_user, ora=orario)
+            ctx['gia_prenotato'] = True
+        except ObjectDoesNotExist:
+            pass
+    # Altrimenti tento di inserire una prenotazione
+    else:
+        try:
+            prenotazione = Prenotazione.objects.get(giorno=giorno, user=my_user, ora=orario)
+            print("prenotazione gia effettuata")
+            ctx['gia_prenotato'] = True
+
+        # Se l'oggetto non esiste, lo creo
+        except ObjectDoesNotExist:
+            ctx['gia_prenotato'] = False
+            prenotazione = Prenotazione()
+            prenotazione.giorno = giorno
+            prenotazione.user = my_user
+            prenotazione.ora = orario
+            prenotazione.save()
+
+    prenotazioni = Prenotazione.objects.filter(giorno=giorno).filter(ora=orario)
+    ctx['prenotazioni'] = prenotazioni
+    ctx['giorno'] = giorno
+    ctx['ora'] = orario
+    return render(request, "Prenotazioni/prenota.html", ctx)

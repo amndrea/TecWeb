@@ -71,7 +71,7 @@
     padding: 20px 0;
 }
 .div-bassa-2 button {
-    margin: 0 20px; /* Aggiunge spazio tra i pulsanti */
+    margin:  50px; /* Aggiunge spazio tra i pulsanti */
 }
 
 .div-bassa-3 {
@@ -201,3 +201,4 @@
 .text-right{
     text-align: right;
 }
+

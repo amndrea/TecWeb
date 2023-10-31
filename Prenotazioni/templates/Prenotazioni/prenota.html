@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- se la palestra è piena per quell'orario visualizzo un messaggio di errore -->
+     <div class="text_red"> {{ giorno.giorno  }}/ {{ giorno.mese }} {{ ora }}:00</div>
+    {% if pieno and not gia_prenotato %}
+        <br>
+        <div style="text-align: center">
+            <img src="{% static "imgs/triste.jpeg" %}">
+            <br><h4> <span style="color: #8B0000" ><strong> Capienza esaurita per l'orario {{ ora }}:00 torna indietro per prenotare
+                l'ingresso in un altro orario </strong></span> </h4>
+        </div>
+        <div class="div-bassa-2">
+           <a href="{% url 'Prenotazioni:calendario' user.pk %}" class="pulsante-rosso">Indietro</a>
+        </div>
+
+    {% else %}
+        <div style="text-align: center">
+            <br><h4> <span style="color: #8B0000" ><strong> Lista di prenotazioni per le {{ ora }}:00</strong></span> </h4>
+            <ul class="list-group list-group-flush">
+
+                {% for prenotazione in prenotazioni  %}
+                   <li class="list-group-item"> <strong>{{ prenotazione.user.username }}</strong></li>
+                {% endfor %}
+             </ul>
+        </div>
+    {% endif %}
+{% endblock %}

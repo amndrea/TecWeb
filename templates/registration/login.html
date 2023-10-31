@@ -8,7 +8,12 @@
         <form method="post">
             {% csrf_token %}
             {{form|crispy}}
-            <input type="submit" class="pulsante-rosso" value="Login">
+            <div class="div-bassa">
+                <input type="submit" class="pulsante-rosso" value="Login">
+                <a href="{% url 'home'  %}" class="pulsante-rosso">Indietro</a>
+            </div>
+
+
         </form>
 
     </div>
