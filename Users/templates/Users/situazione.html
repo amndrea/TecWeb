@@ -15,7 +15,7 @@
     <div style="text-align: center">
 
     <!-- Se l'abbonamento è scaduto qui visualizzo un errore -->
-    {% if user.fine_abbonamento|date < data|date %}
+    {% if user.fine_abbonamento < data %}
         <img src="{% static "imgs/triste.jpeg" %}">
         <div class="div-messaggio">
             <strong><span style="color: #8B0000"> Purtroppo il tuo abbonemanto è scaduto, puoi ancora visualizzare la tua scheda

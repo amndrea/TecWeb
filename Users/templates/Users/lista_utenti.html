@@ -44,6 +44,13 @@
 
                         </td>
                         <td><button class="pulsante-rosso" type="button" onclick="window.location.href='{% url 'Chat:chat' request.user.pk cliente.pk %}'">chat</button> </td>
+                                                <td>
+                        <form method="GET" action="{% url 'Users:edit' cliente.pk 5 %}">
+                            {% csrf_token %}
+                            <button class="pulsante-rosso " type="submit">Modifica abbonamento</button>
+                        </form>
+
+                        </td>
                     {% endif %}
                 </tr>
             </tbody>

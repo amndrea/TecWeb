@@ -65,11 +65,14 @@ class UtenteDetailView(DetailView):
 
     def get_object(self, queryset=None):
         user = MyUser.objects.get(pk=self.kwargs.get("user_pk"))
+        print(user.fine_abbonamento)
         return user
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         data = d.now().date()
+        print("data")
+        print(data)
         context['data'] = data
         return context
 
@@ -99,6 +102,8 @@ class UtenteUpdateView(UpdateView):
             return UtenteUpdateAltezza
         if cosa == 4:
             return UtenteUpdateFoto
+        if cosa == 5:
+            return UtenteUpdateAbbonamento
 
     def get_success_url(self):
         return reverse_lazy("Users:situazione",  kwargs={'user_pk':self.get_object().pk})
@@ -121,3 +126,12 @@ class StaffListView(ListView):
         context['nutrizionista'] = MyUser.objects.filter(groups__in=[ gruppo_nutrizionista])
 
         return context
+
+class AbbonamentoEditView(UpdateView):
+    model = MyUser
+    template_name = "Users/edit_abbonamento.html"
+
+    def get_object(self, queryset=None):
+        user = MyUser.objects.get(pk=self.kwargs.get("user_pk"))
+        return user
+

@@ -61,7 +61,7 @@ class UtenteUpdateform(forms.ModelForm):
     helper.form_id = "edit_user_form"
     helper.form_method = "POST"
     helper.add_input(Submit('submit', 'submit'))
-
+    fine_abbonamento = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), required=False)
     class Meta:
         model = MyUser
         fine_abbonamento = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), required=False)
@@ -84,5 +84,11 @@ class UtenteUpdateFoto(UtenteUpdateform):
     class Meta:
         model = MyUser
         fields = ['immagine_profilo']
+
+class UtenteUpdateAbbonamento(UtenteUpdateform):
+    class Meta:
+        model = MyUser
+        fine_abbonamento = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), required=False)
+        fields = ['fine_abbonamento', 'tipo_abbonamento']
 # --------------------------------------------------------------------------------------- #
 # --------------------------------------------------------------------------------------- #
