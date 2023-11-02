@@ -22,16 +22,26 @@
 {% block content %}
 
     {% if user.is_staff %}
-        <h3> <span style="color:#8B0000;"> <strong>Benvenuto nella home della OLYMPIA GYM admin </strong> </span></h3>
-        <a href="{% url 'admin:index' %}">Pannello di amministrazione</a>
-        <br>
-        <a href="{% url 'Users:crea_nutrizionista' %}">Aggiungi un nutrizionista</a>
-        <br>
-        <a href="{% url 'Users:creaa_pt'%}">Aggiungi un personal trainer</a>
+        <div style="text-align: center">
+            <h3> <span style="color:#8B0000;"> <strong>Benvenuto nella home della OLYMPIA GYM admin </strong> </span></h3>
+            <a href="{% url 'admin:index' %}">Pannello di amministrazione</a>
+            <br>
+            <a href="{% url 'Users:crea_nutrizionista' %}">Aggiungi un nutrizionista</a>
+            <br>
+            <a href="{% url 'Users:creaa_pt'%}">Aggiungi un personal trainer</a>
+        </div>
+
 
     {% elif "nutrizionista" in  user.groups.all.1.name or "pt" in user.groups.all.1.name %}
-        <h3> <span style="color:#8B0000;"> <strong>Benvenuto nella home della OLYMPIA GYM </strong> </span></h3>
-        <a href="{% url 'Users:listautenti' %}">Visualizza utenti</a>
+        <div class="text_red"> Benvenuto nella home della OLYMPIA GYM </div>
+        <div style="text-align: center">
+            <br>
+            <img src="{% static 'imgs/palestra.jpg' %} "width="850">
+            <p> <strong>Visualizza la listra degli utenti per modificarne i dati</strong>   </p>
+            <a href="{% url 'Users:listautenti' %}" class="pulsante-rosso">Visualizza utenti</a>
+
+        </div>
+
 
     {% else %}
     <div class="navbar sticky-top">
@@ -48,16 +58,20 @@
         </div>
 
         <p></p>
-        <h3> <span style="color:#8B0000;"> <strong>Benvenuto nella home della OLYMPIA GYM {{ user.username }} </strong> </span></h3>
+        <div style="text-align: center">
+        <br>
+        <h2> <span style="color:#8B0000;"> <strong>Benvenuto nella home della OLYMPIA GYM {{ user.username }} </strong> </span></h2>
+        <br>
+        </div>
         <div class="container">
-            <img src="{% static 'imgs/bodybyuidingv2.jpg' %}" class="img-thumbnail" alt="Descrizione dell'immagine">
+            <img src="{% static 'imgs/palestra.jpg' %}" class="img-thumbnail" alt="Descrizione dell'immagine">
             <div class="content">
-                <h2>Scegli cosa fare </h2>
-                <p> Visualizza la scheda</p>
-                <p> Visualizza la dieta </p>
-                <p> Effettua una prenotazione </p>
-                <p> Visualizza la tua situazione </p>
-                <p> Chatta con il nostro team</p>
+                <h2> <span style="color: #8B0000"> <strong>Scegli cosa fare </strong></span></h2>
+                <p> <strong>Visualizza la scheda</strong></p>
+                <p><strong> Visualizza la dieta </strong></p>
+                <p><strong> Effettua una prenotazione </strong></p>
+                <p> <strong>Visualizza la tua situazione</strong> </p>
+                <p> <strong>Chatta con il nostro team </strong></p>
             </div>
         </div>
 

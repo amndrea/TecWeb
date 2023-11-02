@@ -1,9 +1,7 @@
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.urls import reverse_lazy
-from django.contrib.auth.models import Group
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from braces.views import GroupRequiredMixin
-
 from .forms import *
 import datetime
 from datetime import datetime as d
@@ -58,7 +56,7 @@ class UtentiListView(GroupRequiredMixin, ListView):
 # ------------------------------------------------------------------------------------------- #
 # View per visualizzare la situazione personale di un utente
 # ------------------------------------------------------------------------------------------- #
-class UtenteDetailView(DetailView):
+class UtenteDetailView(LoginRequiredMixin, DetailView):
     model = MyUser
     template_name = "Users/situazione.html"
     context_object_name = "user"
@@ -81,7 +79,7 @@ class UtenteDetailView(DetailView):
 # View generica per modificare un utente
 # ------------------------------------------------------------------------------------------- #
 
-class UtenteUpdateView(UpdateView):
+class UtenteUpdateView(LoginRequiredMixin, UpdateView):
     model = MyUser
     template_name = "Users/edit_profile.html"
 
@@ -112,7 +110,7 @@ class UtenteUpdateView(UpdateView):
 # ------------------------------------------------------------------------------------------- #
 # View per visualizzare gli utenti che sono nutrizionisti o personal trainer
 # ------------------------------------------------------------------------------------------- #
-class StaffListView(ListView):
+class StaffListView(LoginRequiredMixin, ListView):
     model = MyUser
     template_name = "Users/lista_staff.html"
 
@@ -127,11 +125,12 @@ class StaffListView(ListView):
 
         return context
 
-class AbbonamentoEditView(UpdateView):
+
+class AbbonamentoEditView(GroupRequiredMixin, UpdateView):
     model = MyUser
     template_name = "Users/edit_abbonamento.html"
+    group_required = ["nutrizionista", "pt"]
 
     def get_object(self, queryset=None):
         user = MyUser.objects.get(pk=self.kwargs.get("user_pk"))
         return user
-

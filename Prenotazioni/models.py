@@ -11,7 +11,3 @@ class Prenotazione(models.Model):
     giorno = models.ForeignKey(Giorno, on_delete=models.CASCADE)
     user = models.ForeignKey('Users.MyUser', on_delete=models.CASCADE)
     ora = models.IntegerField( validators=[MinValueValidator(8), MaxValueValidator(20)])
-
-
-
-

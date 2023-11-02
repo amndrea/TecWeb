@@ -1,3 +1,4 @@
+from braces.views import GroupRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
@@ -10,9 +11,10 @@ from .forms import *
 # ------------------------------------------------------------------ #
 # View per la creazione di una dieta
 # ------------------------------------------------------------------ #
-class DietaCreateView(CreateView):
+class DietaCreateView(GroupRequiredMixin, CreateView):
     template_name = 'Diet/crea_dieta.html'
     form_class = InsertDietaCrispyForm
+    group_required = ["nutrizionista"]
 
     def get_user(self):
         user_pk = self.kwargs.get('utente_pk')
@@ -35,10 +37,11 @@ class DietaCreateView(CreateView):
 
         return reverse_lazy("home_login")
 
+
 # ------------------------------------------------------------------ #
 # View per la modifica di una dieta
 # ------------------------------------------------------------------ #
-class DietaEditView(UpdateView):
+class DietaEditView(LoginRequiredMixin, UpdateView):
     model = Dieta
     form_class = DietaUpdateForm
     template_name = 'Diet/modifica_dieta.html'
@@ -58,9 +61,10 @@ class DietaEditView(UpdateView):
 # ------------------------------------------------------------------ #
 # View per la creazione di un giorno
 # ------------------------------------------------------------------ #
-class GiornoDietaCreateView(CreateView):
+class GiornoDietaCreateView(GroupRequiredMixin, CreateView):
     template_name = "Diet/crea_giorno.html"
     form_class = InsertGiornoForm
+    group_required = ["nutrizionista"]
 
     def get_dieta(self):
         dieta_pk = self.kwargs.get('dieta_pk')
@@ -81,9 +85,10 @@ class GiornoDietaCreateView(CreateView):
         return reverse_lazy("Diet:crea_dettaglio", kwargs={"giorno_pk": self.object.pk})
 
 
-class GiornoDietaDeleteView(DeleteView):
+class GiornoDietaDeleteView(GroupRequiredMixin,DeleteView):
     model = GiornoDieta
     template_name = "Diet/delete_giorno.html"
+    group_required = ["nutrizionista"]
 
     def get_object(self, queryset=None):
         giorno_pk = self.kwargs.get('giorno_pk')
@@ -113,9 +118,10 @@ class GiornoDietaDeleteView(DeleteView):
 # ------------------------------------------------------------------ #
 # View per creare un dettaglio di un giorno e un alimento
 # ------------------------------------------------------------------ #
-class DettaglioGiornoAlimentoCreateView(CreateView):
+class DettaglioGiornoAlimentoCreateView(GroupRequiredMixin,CreateView):
     template_name = "Diet/crea_dettaglio.html"
     form_class = FormDettaglioGiornoAlimento
+    group_required = ["nutrizionista"]
 
     def get_giorno(self):
         pk_giorno = self.kwargs.get('giorno_pk')
@@ -145,14 +151,14 @@ class DettaglioGiornoAlimentoCreateView(CreateView):
 # View che modifica la quantita di un alimento in un giorno, se la modifica
 # va a buon fine ritorno alla visualizzazione della dieta completa dell'utente
 # --------------------------------------------------------------------------- #
-class DettaglioDietaAlimentoEditView(UpdateView):
+class DettaglioDietaAlimentoEditView(GroupRequiredMixin, UpdateView):
     model = DettaglioGiornoAlimento
     form_class = DettaglioDietaUpdateForm
     template_name = 'Diet/modifica_dettaglio.html'
+    group_required = ["nutrizionista"]
 
     def get_object(self, queryset=None):
-        dettaglio_pk = self.kwargs.get('dettaglio_pk')
-        dettaglio = DettaglioGiornoAlimento.objects.get(pk=dettaglio_pk)
+        dettaglio = DettaglioGiornoAlimento.objects.get(pk=self.kwargs.get('dettaglio_pk'))
         return dettaglio
 
     def get_success_url(self):
@@ -163,12 +169,6 @@ class DettaglioDietaAlimentoEditView(UpdateView):
         return reverse_lazy("Diet:mostradietauser", kwargs={'pk': user_pk})
 
         #return reverse_lazy("Diet:mostra_giorni", kwargs={'dieta_pk':giorno.dieta.pk})
-
-
-
-
-
-
 
 
 # ------------------------------------------------------------------ #

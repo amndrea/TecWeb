@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
@@ -10,6 +11,7 @@ from .models import *
 # re-direziona alla pagina dove mostra la chat se questa esiste, chiamano
 # la DetailView associata all url mostra_chat
 # ---------------------------------------------------------------------------- #
+@login_required
 def chat(request, u1_pk, u2_pk):
     chat_i = Chat.objects.filter(utente_1=u1_pk).filter(utente_2=u2_pk).first()
     if not chat_i:
@@ -26,6 +28,7 @@ def chat(request, u1_pk, u2_pk):
 # View per visualizzare i messaggi tra due utenti
 # all'invio del form, viene richiamata la view, e il messaggio viene inserito
 # ---------------------------------------------------------------------------- #
+@login_required
 def chat_utenti(request, u1_pk, u2_pk):
     if request.method == "POST":
         testo = request.POST.get('messaggio')

@@ -1,5 +1,5 @@
-from django.http import Http404
-from django.shortcuts import render
+from braces.views import GroupRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from Users.models import MyUser
@@ -9,10 +9,10 @@ from .forms import *
 # ------------------------------------------------------------------------- #
 # View per la creazione della scheda di un utente
 # ------------------------------------------------------------------------- #
-class SchedaCreateView(CreateView):
+class SchedaCreateView(GroupRequiredMixin, CreateView):
     template_name = "Workout/crea_scheda.html"
     form_class = SchedaCreateForm
-
+    group_required = ["pt"]
     def get_user(self):
         my_user = MyUser.objects.get(pk=self.kwargs.get('user_pk'))
         return my_user
@@ -37,7 +37,7 @@ class SchedaCreateView(CreateView):
 # ------------------------------------------------------------------------- #
 # View per la visualizzazione della scheda completa di un untente
 # ------------------------------------------------------------------------- #
-class SchedaDetailView(DetailView):
+class SchedaDetailView(LoginRequiredMixin, DetailView):
     model = Scheda
     template_name = "Workout/mostraschedautente.html"
     context_object_name = "scheda"
@@ -76,7 +76,7 @@ class SchedaDetailView(DetailView):
 # ------------------------------------------------------------------------- #
 # Classe inutile, usata solo nella fase di testing per visualizzare gli esercizi
 # ------------------------------------------------------------------------- #
-class EsercizioListView(ListView):
+class EsercizioListView(LoginRequiredMixin, ListView):
     model = Esercizio
     template_name = "Workout/lista_esercizi.html"
 
@@ -108,10 +108,10 @@ class GiornoSchedaCreateView(CreateView):
 
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
-class DettaglioGiornoCreateView(CreateView):
+class DettaglioGiornoCreateView(GroupRequiredMixin, CreateView):
     template_name = "Workout/crea_dettaglio.html"
     form_class = DettaglioGiornoEsercizioForm
-
+    group_required = ["pt"]
     def form_valid(self, form):
         form.instance.giorno = self.get_giorno()
         return super().form_valid(form)
@@ -127,10 +127,11 @@ class DettaglioGiornoCreateView(CreateView):
 # ------------------------------------------------------------------------- #
 #    View per modificare un dettaglio di un esercizio in un giorno
 # ------------------------------------------------------------------------- #
-class DettagliGiornoUpdateView(UpdateView):
+class DettagliGiornoUpdateView(GroupRequiredMixin, UpdateView):
     model = DettaglioEsercizioGiorno
     template_name = 'Workout/modifica_dettaglio.html'
     context_object_name = 'dettaglio'
+    group_required = ["pt"]
 
     def get_object(self, queryset=None):
         dettaglio = DettaglioEsercizioGiorno.objects.get(pk=self.kwargs.get("dettaglio_pk"))
@@ -159,21 +160,26 @@ class DettagliGiornoUpdateView(UpdateView):
 # View per le eliminazioni di un giorno da una scheda o di un dettaglio da
 # una scheda, entrambe le view ereditano dal DeleteOggettoView
 # ------------------------------------------------------------------------- #
-class DeleteOggettoView(DeleteView):
+class DeleteOggettoView(GroupRequiredMixin,DeleteView):
     template_name = "Workout/delete.html"
+    group_required = ["pt"]
 
     def get_success_url(self):
         return reverse("Workout:mostra_scheda_user", kwargs={'user_pk': self.kwargs.get("utente_pk")})
 
-class DeleteGiorno(DeleteOggettoView):
+
+class DeleteGiorno( DeleteOggettoView):
+    group_required = ["pt"]
     model = GiornoScheda
 
     def get_object(self, queryset=None):
         giorno = GiornoScheda.objects.get(pk=self.kwargs.get("pk"))
         return giorno
 
-class DeleteDettaglio(DeleteOggettoView):
+
+class DeleteDettaglio( DeleteOggettoView):
     model = DettaglioEsercizioGiorno
+
 
     def get_object(self, queryset=None):
         dettaglio = DettaglioEsercizioGiorno.objects.get(pk=self.kwargs.get("pk"))

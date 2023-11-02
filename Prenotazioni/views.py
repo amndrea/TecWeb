@@ -1,14 +1,14 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 import datetime
-
-from django.urls import  reverse
-
+from django.urls import reverse
 from Users.models import MyUser
 from .models import *
 from django.core.exceptions import ObjectDoesNotExist
 
 # View per mostrare una pagina HTML contenente un calendario
+@login_required
 def mostra_calendario(request, user_pk):
     parametri = request.GET
     if 'year' in parametri and 'month' in parametri:
@@ -23,6 +23,7 @@ def mostra_calendario(request, user_pk):
 
 # View per mostrare i giorni e permettere il
 # prenotamento di un orario
+@login_required
 def mostra_giorno(request, year, month, day):
     data = datetime.date(year,month,day)
     ctx = {}
@@ -49,8 +50,7 @@ def mostra_giorno(request, year, month, day):
         return render(request, "Prenotazioni/giorno.html",ctx)
 
 
-
-
+@login_required
 def effettua_prenotazione(request, orario, giorno_pk, utente_pk):
     ctx = {}
     # Conversione da orario in formato stringa a intero
